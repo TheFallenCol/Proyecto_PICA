@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DBModels
+﻿namespace DBModels
 {
     public class Supplier
     {
