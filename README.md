@@ -1,4 +1,4 @@
-# WebInterfaceAngular
+# Proyecto_PICA
 Proyecto PICA
 
 En este repositorio se encuentra la interfaz gráfica del proyecto y el microservicio de autenticación con JWToken
