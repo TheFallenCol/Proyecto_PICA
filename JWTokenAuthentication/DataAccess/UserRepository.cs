@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using DBModels;
 using Repositories;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace DataAccess
@@ -13,15 +12,15 @@ namespace DataAccess
 
         }
 
-        public IEnumerable<User> ValidateUser(string email, string password)
+        public User ValidateUser(string nickname, string password)
         {
             var parameters = new DynamicParameters();
-            parameters.Add("@email", email);
+            parameters.Add("@nickname", nickname);
             parameters.Add("@password", password);
 
             using(var connection = new SqlConnection(_connectionString))
             {
-                return connection.Query<User>("dbo.ValidateUser", parameters, commandType: System.Data.CommandType.StoredProcedure);
+                return connection.QueryFirstOrDefault<User>("dbo.ValidateUser", parameters, commandType: System.Data.CommandType.StoredProcedure);
             }
 
         }
