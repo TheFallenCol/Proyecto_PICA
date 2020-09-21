@@ -23,9 +23,14 @@ namespace AuthenticationAPI.Authentication
         /// <param name="keyName">Name of the key</param>
         public JwtProvider(string issuer, string audience, string keyName)
         {
-            var parameters = new CspParameters() { KeyContainerName = keyName };
-            var provider = new RSACryptoServiceProvider(2048, parameters);
-            _key = new RsaSecurityKey(provider);
+            //Proveedores para utilizar el almacen de windows 
+            //var parameters = new CspParameters() { KeyContainerName = keyName };
+            //var provider = new RSACryptoServiceProvider(2048, parameters);
+                        
+            //Proveedores para utilizar en Docker linux            
+            var rsaProvider = RSA.Create(2048);
+
+            _key = new RsaSecurityKey(rsaProvider);
             _algorithm = SecurityAlgorithms.RsaSha256Signature;
             _issuer = issuer;
             _audience = audience;
