@@ -7,6 +7,6 @@ namespace AuthenticationAPI.Authentication
     public interface ITokenProvider
     {
         string CreateToken(User user, DateTime expiry);
-        TokenValidationParameters GetValidationParameters();
+        bool ValidateToken(string token);
     }
 }

@@ -6,7 +6,6 @@ using UnitOfWork;
 namespace AuthenticationAPI.Controllers
 {
     [Route("api/Customer")]
-    [Authorize]
     public class CustomerController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

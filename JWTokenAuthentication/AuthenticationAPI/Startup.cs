@@ -33,17 +33,19 @@ namespace AuthenticationAPI
                 Configuration.GetConnectionString("AutenthicationDB")
                 ));
 
-            var tokenProvider = new JwtProvider("issuer","audience","AES_PICA_Token2020");
+            ////Token1
+            var tokenProvider = new JwtProvider("issuer", "audience");
             services.AddSingleton<ITokenProvider>(tokenProvider);
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>{
-                options.RequireHttpsMetadata = false;
-                options.TokenValidationParameters = tokenProvider.GetValidationParameters();
-            });
-            
-            services.AddAuthorization(auth =>{
-                auth.DefaultPolicy = new AuthorizationPolicyBuilder().AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme).RequireAuthenticatedUser().Build();
-            });
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            //{
+            //    options.RequireHttpsMetadata = false;
+            //    options.TokenValidationParameters = tokenProvider.GetValidationParameters();
+            //});
+
+            //services.AddAuthorization(auth =>{
+            //    auth.DefaultPolicy = new AuthorizationPolicyBuilder().AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme).RequireAuthenticatedUser().Build();
+            //});
 
             services.AddControllers();
         }
@@ -55,13 +57,12 @@ namespace AuthenticationAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseAuthentication();
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthorization();            
+            app.UseAuthorization();        
 
             app.UseEndpoints(endpoints =>
             {
