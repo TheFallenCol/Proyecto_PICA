@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{C78935FE-1FF9-4F92-A8EE-E785924F7C31}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{D5887CE8-2E26-43FC-8164-63397827EAC7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{E76B4A1A-CF78-4A2E-834A-B51521850B54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServiceAdapterAPI", "WebServiceAdapterAPI\WebServiceAdapterAPI.csproj", "{EE5619AA-1E8D-40B2-BC7A-EB17D835832D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE5619AA-1E8D-40B2-BC7A-EB17D835832D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE5619AA-1E8D-40B2-BC7A-EB17D835832D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE5619AA-1E8D-40B2-BC7A-EB17D835832D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE5619AA-1E8D-40B2-BC7A-EB17D835832D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EE5619AA-1E8D-40B2-BC7A-EB17D835832D} = {C78935FE-1FF9-4F92-A8EE-E785924F7C31}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DF01FEDE-931F-42F3-BBD1-C6E130C85646}
+	EndGlobalSection
+EndGlobal
