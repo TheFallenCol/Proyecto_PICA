@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AutheticationLibrary;
+using DBModels;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Threading.Tasks;
-using AuthenticationAPI.Authentication;
-using DBModels;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using UnitOfWork;
 
 namespace AuthenticationAPI.Controllers
@@ -24,15 +21,22 @@ namespace AuthenticationAPI.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        [HttpGet]
+        public IActionResult HealthService()
+        {
+            return Ok("Servicio funcionando correctamente");
+        }
+
         [HttpPost]
         public JsonWebToken CreateToken([FromBody] User userLogin)
         {
             var user = _unitOfWork.User.ValidateUser(userLogin.NickName, userLogin.Password);
-            
-            if(user == null)
+
+            if (user == null)
                 throw new UnauthorizedAccessException();
 
-            return new JsonWebToken{
+            return new JsonWebToken
+            {
                 Access_Token = _tokenProvider.CreateToken(user, DateTime.UtcNow.AddHours(8)),
                 Expires_in = 480 //life time of the token on minutes
             };
@@ -53,7 +57,7 @@ namespace AuthenticationAPI.Controllers
                     Role = jwtToken.Claims.First(claim => claim.Type == "role").Value,
                     PrimarySid = jwtToken.Claims.First(claim => claim.Type == "primarysid").Value
                 });
-                                                
+
             }
 
             return BadRequest("Token is invalid.");

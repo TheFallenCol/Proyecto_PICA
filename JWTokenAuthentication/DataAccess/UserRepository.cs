@@ -22,7 +22,6 @@ namespace DataAccess
             {
                 return connection.QueryFirstOrDefault<User>("dbo.ValidateUser", parameters, commandType: System.Data.CommandType.StoredProcedure);
             }
-
         }
     }
 }

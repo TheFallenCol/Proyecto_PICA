@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "customer",
+      "launchUrl": "tolen",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,7 +20,7 @@
     "AuthenticationAPI": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "customer",
+      "launchUrl": "api/token",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -29,7 +29,7 @@
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/api/customer",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/api/token",
       "publishAllPorts": true,
       "useSSL": true
     }
