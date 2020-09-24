@@ -25,10 +25,16 @@ namespace AuthenticationAPI
             services.AddSingleton<IUnitOfWork>(option => new DataAccess.UnitOfWork(
                 Configuration.GetConnectionString("AutenthicationDB")
                 ));
-
-            ////Token1
+            
             var tokenProvider = new JwtProvider("TouresBalon.com", "UsuariosPlataforma");
             services.AddSingleton<ITokenProvider>(tokenProvider);
+
+            //TODO: Verificar si este puerto si está redireccionando el trafico en docker
+            services.AddHttpsRedirection(options =>
+            {
+                options.HttpsPort = 443;
+            });
+
 
             services.AddControllers();
         }
