@@ -29,13 +29,6 @@ namespace AuthenticationAPI
             var tokenProvider = new JwtProvider("TouresBalon.com", "UsuariosPlataforma");
             services.AddSingleton<ITokenProvider>(tokenProvider);
 
-            //TODO: Verificar si este puerto si está redireccionando el trafico en docker
-            services.AddHttpsRedirection(options =>
-            {
-                options.HttpsPort = 443;
-            });
-
-
             services.AddControllers();
         }
 
@@ -51,8 +44,6 @@ namespace AuthenticationAPI
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
