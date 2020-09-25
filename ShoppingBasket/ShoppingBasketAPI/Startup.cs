@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using UnitOfWork;
 
 namespace ShoppingBasketAPI
 {
@@ -22,7 +23,11 @@ namespace ShoppingBasketAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-           
+
+            services.AddSingleton<IUnitOfWork>(option => new DataAccess.UnitOfWork(
+                Configuration.GetConnectionString("AutenthicationDBLaptop")
+            ));
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;
@@ -50,8 +55,6 @@ namespace ShoppingBasketAPI
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
-
-            //app.UseMiddleware<JwtMiddleware>();
 
             app.UseHttpsRedirection();
 

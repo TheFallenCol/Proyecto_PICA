@@ -13,6 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+    <ProjectReference Include="..\UnitOfWork\UnitOfWork.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="AutheticationLibrary">
       <HintPath>..\..\JWTokenAuthentication\AutheticationLibrary\bin\Debug\netcoreapp3.1\AutheticationLibrary.dll</HintPath>
     </Reference>
