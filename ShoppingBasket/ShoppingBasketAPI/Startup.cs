@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ShoppingBasketAPI.ErrorHandling;
 using UnitOfWork;
 
 namespace ShoppingBasketAPI
@@ -57,6 +58,8 @@ namespace ShoppingBasketAPI
                 .AllowAnyHeader());
 
             app.UseHttpsRedirection();
+
+            app.ConfigureExceptionHandler();
 
             app.UseRouting();
 
