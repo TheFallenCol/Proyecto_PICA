@@ -26,7 +26,7 @@ namespace ShoppingBasketAPI
             services.AddCors();
 
             services.AddSingleton<IUnitOfWork>(option => new DataAccess.UnitOfWork(
-                Configuration.GetConnectionString("AutenthicationDBLaptop")
+                Configuration.GetConnectionString("AutenthicationDB")
             ));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
