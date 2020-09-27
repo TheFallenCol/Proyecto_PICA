@@ -9,7 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{D5887CE8-2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{E76B4A1A-CF78-4A2E-834A-B51521850B54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServiceAdapterAPI", "WebServiceAdapterAPI\WebServiceAdapterAPI.csproj", "{EE5619AA-1E8D-40B2-BC7A-EB17D835832D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebServiceAdapterAPI", "WebServiceAdapterAPI\WebServiceAdapterAPI.csproj", "{EE5619AA-1E8D-40B2-BC7A-EB17D835832D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServiceAdapterLibrary", "WebServiceAdapterLibrary\WebServiceAdapterLibrary.csproj", "{33A21B5A-245D-4E17-B18A-ED28844A70AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,12 +23,17 @@ Global
 		{EE5619AA-1E8D-40B2-BC7A-EB17D835832D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE5619AA-1E8D-40B2-BC7A-EB17D835832D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE5619AA-1E8D-40B2-BC7A-EB17D835832D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33A21B5A-245D-4E17-B18A-ED28844A70AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33A21B5A-245D-4E17-B18A-ED28844A70AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33A21B5A-245D-4E17-B18A-ED28844A70AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33A21B5A-245D-4E17-B18A-ED28844A70AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{EE5619AA-1E8D-40B2-BC7A-EB17D835832D} = {C78935FE-1FF9-4F92-A8EE-E785924F7C31}
+		{33A21B5A-245D-4E17-B18A-ED28844A70AD} = {D5887CE8-2E26-43FC-8164-63397827EAC7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DF01FEDE-931F-42F3-BBD1-C6E130C85646}

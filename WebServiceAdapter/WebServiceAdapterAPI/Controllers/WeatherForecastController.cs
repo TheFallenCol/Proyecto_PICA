@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using WebServiceAdapterLibrary;
 
 namespace WebServiceAdapterAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -26,16 +22,21 @@ namespace WebServiceAdapterAPI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public IActionResult Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            //var url = "http://www.dneonline.com/calculator.asmx";
+            var url = "http://DESKTOP-Q4E08KH:9050/mockCalculatorSoap"; 
+            var action = "Add";
+            var envelope = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tem=\"http://tempuri.org/\"><soapenv:Header/><soapenv:Body><tem:Add><tem:intA>12</tem:intA><tem:intB>23</tem:intB></tem:Add></soapenv:Body></soapenv:Envelope>";
+
+            var response = new SoapAdapter(url,action,envelope).SoapDynamicallyCall();
+
+            return Ok(new { 
+                Envelope = envelope,
+                Action = action,
+                Url = url,
+                Response = response
+            });                
         }
     }
 }
