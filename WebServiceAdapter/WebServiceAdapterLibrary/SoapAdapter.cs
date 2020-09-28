@@ -8,24 +8,22 @@ namespace WebServiceAdapterLibrary
 {
     public class SoapAdapter
     {
-        private readonly string _url;
-        private readonly string _action;
-        private readonly string _SOAPEnvelope;
-
-        public SoapAdapter(string url, string action, string SOAPEnvelope)
+        private readonly SoapParameters _soapParameters;
+        
+        public SoapAdapter(SoapParameters soapParameters)
         {
-            _url = url;
-            _action = action;
-            _SOAPEnvelope = SOAPEnvelope;
+            _soapParameters = soapParameters;
         }
 
-        public string SoapDynamicallyCall()
+        public SoapParameters SoapDynamicallyCall()
         {            
             var soapEnvelopeXml = CreateSoapEnvelope();
-            var soapRequest = CreateSoapRequest(_url, _action);
+            var soapRequest = CreateSoapRequest(_soapParameters.Url, _soapParameters.Action);
 
+            //Inserta dentro del WebRequest el envelope del SOAP
             InsertSoapEnvelopeIntoSoapRequest(soapEnvelopeXml, soapRequest);
 
+            //Escribir el Envelope como un XML
             using (var stringWriter = new StringWriter())
             {
                 using (var xmlWriter = XmlWriter.Create(stringWriter))
@@ -35,16 +33,13 @@ namespace WebServiceAdapterLibrary
                 }
             }
 
-            // begin async call to web request.
+            //Realizar la solicitud
             var asyncResult = soapRequest.BeginGetResponse(null, null);
-
-            // suspend this thread until call is complete. You might want to
-            // do something usefull here like update your UI.
             var success = asyncResult.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(5));
 
             if (!success) return null;
 
-            // get the response from the completed web request.
+            //Obtener la respuesta del servicio
             using (var webResponse = soapRequest.EndGetResponse(asyncResult))
             {
                 string soapResult;
@@ -57,7 +52,8 @@ namespace WebServiceAdapterLibrary
                 {
                     soapResult = reader.ReadToEnd();
                 }
-                return soapResult;
+                _soapParameters.EnvelopeResponse = soapResult;
+                return _soapParameters;
             }
         }
 
@@ -74,7 +70,7 @@ namespace WebServiceAdapterLibrary
         private XmlDocument CreateSoapEnvelope()
         {
             var soapEnvelope = new XmlDocument();
-            soapEnvelope.LoadXml(_SOAPEnvelope); //the SOAP envelope to send
+            soapEnvelope.LoadXml(_soapParameters.EnvelopeRequest);
             return soapEnvelope;
         }
 
