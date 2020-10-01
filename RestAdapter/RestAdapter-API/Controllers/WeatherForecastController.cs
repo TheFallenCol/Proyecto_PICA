@@ -1,6 +1,7 @@
-﻿using JsonFx.Json;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RestAdapterLibrary;
 
 namespace RestAdapter_API.Controllers
@@ -23,14 +24,16 @@ namespace RestAdapter_API.Controllers
 
         [HttpGet]
         public IActionResult Get()
+        {            
+            return Ok(new { Message = "The service is up"});
+        }
+
+
+        [HttpPost]
+        public IActionResult MakeCall([FromBody] RestCall callDescription)
         {
-            RestAdapter algo = new RestAdapter();
-            var reader = new JsonReader(); 
-            var writer = new JsonWriter();
-            string input = algo.Method().GetAwaiter().GetResult();
-            dynamic output = reader.Read(input);            
-            string json = writer.Write(output);
-            return Ok(json);
+            var restAdapter = new RestAdapter(callDescription);
+            return Ok(JsonConvert.DeserializeObject(restAdapter.Method().GetAwaiter().GetResult()));
         }
     }
 }
