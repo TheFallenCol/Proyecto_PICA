@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using WebServiceAdapterLibrary;
 
 namespace WebServiceAdapterAPI.Controllers
@@ -10,8 +11,18 @@ namespace WebServiceAdapterAPI.Controllers
         [HttpPost]
         public IActionResult Get([FromBody] SoapParameters soapParameters)
         {
-            var response = new SoapAdapter(soapParameters).SoapDynamicallyCall();
-            return Ok(response);
+            try
+            {
+                var response = new SoapAdapter(soapParameters).SoapDynamicallyCall();
+                return Ok(response);
+            }
+            catch(Exception ex)
+            {
+                if(ex.GetType() == typeof(TimeoutException))
+                    return StatusCode(408);
+                
+                return BadRequest(new { MessageError = ex.Message.ToString() });
+            }            
         }
     }
 }

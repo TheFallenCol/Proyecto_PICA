@@ -16,44 +16,56 @@ namespace WebServiceAdapterLibrary
         }
 
         public SoapParameters SoapDynamicallyCall()
-        {            
-            var soapEnvelopeXml = CreateSoapEnvelope();
-            var soapRequest = CreateSoapRequest(_soapParameters.Url, _soapParameters.Action);
-
-            //Inserta dentro del WebRequest el envelope del SOAP
-            InsertSoapEnvelopeIntoSoapRequest(soapEnvelopeXml, soapRequest);
-
-            //Escribir el Envelope como un XML
-            using (var stringWriter = new StringWriter())
+        {
+            try
             {
-                using (var xmlWriter = XmlWriter.Create(stringWriter))
+                var soapEnvelopeXml = CreateSoapEnvelope();
+                var soapRequest = CreateSoapRequest(_soapParameters.Url, _soapParameters.Action);
+
+                //Inserta dentro del WebRequest el envelope del SOAP
+                InsertSoapEnvelopeIntoSoapRequest(soapEnvelopeXml, soapRequest);
+
+                //Escribir el Envelope como un XML
+                using (var stringWriter = new StringWriter())
                 {
-                    soapEnvelopeXml.WriteTo(xmlWriter);
-                    xmlWriter.Flush();
+                    using (var xmlWriter = XmlWriter.Create(stringWriter))
+                    {
+                        soapEnvelopeXml.WriteTo(xmlWriter);
+                        xmlWriter.Flush();
+                    }
+                }
+
+                soapRequest.Timeout = 10000;
+
+                //Realizar la solicitud
+                var asyncResult = soapRequest.BeginGetResponse(null, null);
+                var success = asyncResult.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(5));
+
+                if (!success) return null;
+
+                //Obtener la respuesta del servicio
+                using (var webResponse = soapRequest.EndGetResponse(asyncResult))
+                {
+                    string soapResult;
+                    var responseStream = webResponse.GetResponseStream();
+                    if (responseStream == null)
+                    {
+                        return null;
+                    }
+                    using (var reader = new StreamReader(responseStream))
+                    {
+                        soapResult = reader.ReadToEnd();
+                    }
+                    _soapParameters.EnvelopeResponse = soapResult;
+                    return _soapParameters;
                 }
             }
-
-            //Realizar la solicitud
-            var asyncResult = soapRequest.BeginGetResponse(null, null);
-            var success = asyncResult.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(5));
-
-            if (!success) return null;
-
-            //Obtener la respuesta del servicio
-            using (var webResponse = soapRequest.EndGetResponse(asyncResult))
+            catch (TimeoutException timeException) {
+                throw timeException;
+            }
+            catch (Exception ex)
             {
-                string soapResult;
-                var responseStream = webResponse.GetResponseStream();
-                if (responseStream == null)
-                {
-                    return null;
-                }
-                using (var reader = new StreamReader(responseStream))
-                {
-                    soapResult = reader.ReadToEnd();
-                }
-                _soapParameters.EnvelopeResponse = soapResult;
-                return _soapParameters;
+                throw ex;
             }
         }
 
