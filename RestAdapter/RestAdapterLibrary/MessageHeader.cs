@@ -7,10 +7,12 @@ namespace RestAdapterLibrary
     public class MessageHeader
     {        
         public bool TokenHeader { get; set; }
-        public string HeaderParameters { get; set; }
+        public Dictionary<string,string> HeaderParameters { get; set; }
         public string MediaTypeHeader { get; set; }
+        public RestCall TokenDefinition { get; set; }
+        public string[] ResponseToken { get; set; }
 
-        public MessageHeader(bool tokenHeader, string headerParameters, string mediaTypeHeader)
+        public MessageHeader(bool tokenHeader, Dictionary<string,string> headerParameters, string mediaTypeHeader)
         {
             TokenHeader = tokenHeader;
             HeaderParameters = headerParameters;

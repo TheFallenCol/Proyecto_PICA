@@ -1,7 +1,10 @@
-﻿using System;
+﻿using RestSharp;
+using RestSharp.Authenticators;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,38 +19,69 @@ namespace RestAdapterLibrary
             _callDescription = callDescription;
         }
 
-        public async Task<string> Method()
-        {            
+        public async Task<string> ExecuteRestCall()
+        {
             try
             {
-                using (HttpClient client = new HttpClient())
+                using (var httpClient = new HttpClient())
                 {
-                    client.BaseAddress = new Uri(_callDescription.BaseURL);
-                    MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue(_callDescription.Header.MediaTypeHeader);
-                    client.DefaultRequestHeaders.Accept.Add(contentType);
+                    //RestSharp
+                    //RestClient client = new RestClient(_callDescription.BaseURL);
+                    //client.Authenticator = new SimpleAuthenticator("NickName","GermanSilva","password","123456");
+                    //var request = new RestRequest("api/token", Method.POST);
+                    //var algo = client.Execute(request);
 
-                    var content = new StringContent(_callDescription.Body.BodyMessage, Encoding.UTF8, _callDescription.Body.BodyMediaType);
-                    HttpResponseMessage response = client.PostAsync(_callDescription.APIMethod, content).Result;
-                    string stringData = response.Content.ReadAsStringAsync().Result;
+                    //httpClient.BaseAddress = new Uri(_callDescription.BaseURL);
+                    //httpClient.DefaultRequestHeaders.Accept.Add(await SetHeader(_callDescription.Header.TokenHeader));
+                    //string stringData = await PostCall(httpClient);
 
+                    var dict = new Dictionary<string, string>();
+                    dict.Add("grant_type", "client_credentials");
+                    dict.Add("client_id", "TsFjpZGZZZyF779B3QAAkJvneMb2GGGj");
+                    dict.Add("client_secret", "BZtAGcQKY95tpcVd");
 
-                    //var dict = new Dictionary<string, string>();
-                    //dict.Add("grant_type", "client_credentials");
-                    //dict.Add("client_id", "TsFjpZGZZZyF779B3QAAkJvneMb2GGGj");
-                    //dict.Add("client_secret", "BZtAGcQKY95tpcVd");
-
-                    //client.BaseAddress = new Uri("https://test.api.amadeus.com");                                       
-                    //var req = new HttpRequestMessage(HttpMethod.Post, String.Format("{0}{1}",client.BaseAddress.ToString(), "v1/security/oauth2/token")) { Content = new FormUrlEncodedContent(dict)};
-                    //var res = await client.SendAsync(req);
-                    //string stringData = res.Content.ReadAsStringAsync().Result;
+                    httpClient.BaseAddress = new Uri("https://test.api.amadeus.com");
+                    var req = new HttpRequestMessage(HttpMethod.Post, String.Format("{0}{1}", httpClient.BaseAddress.ToString(), "v1/security/oauth2/token")) { Content = new FormUrlEncodedContent(_callDescription.Header.TokenDefinition.Body.BodyRawMessage) };
+                    var res = await httpClient.SendAsync(req);
+                    string stringData = await res.Content.ReadAsStringAsync();
 
                     return stringData;
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                return null;
+                return ex.Message;
             }
         }
+
+        public async Task<MediaTypeWithQualityHeaderValue> SetHeader(bool hasToken)
+        {
+            MediaTypeWithQualityHeaderValue contentType = null;
+
+            if (hasToken)
+            {
+                //...Logica
+                var restCall = new RestCall();
+            }
+            else
+            {
+                contentType = new MediaTypeWithQualityHeaderValue(_callDescription.Header.MediaTypeHeader);
+            }
+
+            return contentType;
+        }
+
+        public StringContent SetBody()
+        {
+            var content = new StringContent(_callDescription.Body.BodyJsonMessage, Encoding.UTF8, _callDescription.Body.BodyMediaType);
+            return content;
+        }
+
+        public async Task<string> PostCall(HttpClient httpClient)
+        {
+            HttpResponseMessage response = await httpClient.PostAsync(_callDescription.APIMethod, SetBody());
+            return await response.Content.ReadAsStringAsync();
+        }
+
     }
 }

@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace RestAdapterLibrary
 {
     public class MessageBody
     {
         public string BodyMediaType { get; set; }
-        public string BodyMessage { get; set; }
+        public string BodyJsonMessage { get; set; }
+        public Dictionary<string,string> BodyRawMessage { get; set; }
 
-        public MessageBody(string bodyMediaType, string bodyMessage)
+        public MessageBody(string bodyMediaType, string bodyJsonMessage, Dictionary<string, string> bodyRawMessage)
         {
             BodyMediaType = bodyMediaType;
-            BodyMessage = bodyMessage;
+            BodyJsonMessage = BodyJsonMessage;
+            BodyRawMessage = bodyRawMessage;
         }
 
         public MessageBody()
