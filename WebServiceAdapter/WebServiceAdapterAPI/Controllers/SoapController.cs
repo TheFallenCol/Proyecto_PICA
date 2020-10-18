@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using WebServiceAdapterLibrary;
 
@@ -9,20 +10,24 @@ namespace WebServiceAdapterAPI.Controllers
     public class SoapController : ControllerBase
     {
         [HttpPost]
-        public IActionResult Get([FromBody] SoapParameters soapParameters)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status408RequestTimeout)]
+        public IActionResult ResponseRequest([FromBody] SoapParameters soapParameters)
         {
             try
             {
                 var response = new SoapAdapter(soapParameters).SoapDynamicallyCall();
-                return Ok(response);
+                return Ok(new { EnvelopeResponse = response });
             }
             catch(Exception ex)
             {
                 if(ex.GetType() == typeof(TimeoutException))
-                    return StatusCode(408);
+                    return StatusCode(408, new { MessageError = ex.Message });
                 
-                return BadRequest(new { MessageError = ex.Message.ToString() });
-            }            
+                return BadRequest(new { MessageError = ex.Message });
+            }
         }
     }
 }

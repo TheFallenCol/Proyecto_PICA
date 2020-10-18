@@ -15,7 +15,7 @@ namespace WebServiceAdapterLibrary
             _soapParameters = soapParameters;
         }
 
-        public SoapParameters SoapDynamicallyCall()
+        public string SoapDynamicallyCall()
         {
             try
             {
@@ -56,8 +56,8 @@ namespace WebServiceAdapterLibrary
                     {
                         soapResult = reader.ReadToEnd();
                     }
-                    _soapParameters.EnvelopeResponse = soapResult;
-                    return _soapParameters;
+                    
+                    return soapResult;
                 }
             }
             catch (TimeoutException timeException) {
