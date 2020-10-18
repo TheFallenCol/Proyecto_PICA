@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace RestAdapterLibrary
 {
@@ -10,13 +8,15 @@ namespace RestAdapterLibrary
         public Dictionary<string,string> HeaderParameters { get; set; }
         public string MediaTypeHeader { get; set; }
         public RestCall TokenDefinition { get; set; }
-        public string[] ResponseToken { get; set; }
+        public Dictionary<string,string> ResponseToken { get; set; }
 
-        public MessageHeader(bool tokenHeader, Dictionary<string,string> headerParameters, string mediaTypeHeader)
+        public MessageHeader(bool tokenHeader, Dictionary<string,string> headerParameters, string mediaTypeHeader, RestCall tokenDefinition, Dictionary<string,string> responseToken)
         {
             TokenHeader = tokenHeader;
             HeaderParameters = headerParameters;
             MediaTypeHeader = mediaTypeHeader;
+            TokenDefinition = tokenDefinition;
+            ResponseToken = responseToken;
         }
 
         public MessageHeader()

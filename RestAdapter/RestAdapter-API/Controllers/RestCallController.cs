@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using RestAdapterLibrary;
-using System.Threading.Tasks;
+using System;
 
 namespace RestAdapter_API.Controllers
 {
@@ -9,17 +10,31 @@ namespace RestAdapter_API.Controllers
     public class RestCallController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Get()
-        {            
-            return Ok(new { Message = "The service is up"});
+        public ActionResult Get()
+        {
+            return Ok(new { Message = "The service is up" });
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> MakeCall([FromBody] RestCall callDescription)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult MakeCall([FromBody] RestCall callDescription)
         {
-            var restAdapter = new RestAdapter(callDescription);
-            return Ok(await restAdapter.ExecuteRestCall());
+            try
+            {
+                var restAdapter = new RestAdapter(callDescription);
+                return Ok(restAdapter.ExecuteRestCall());
+            }
+            catch (Exception ex)
+            {
+                if (ex.GetType() == typeof(TimeoutException))
+                    return StatusCode(408, new { MessageError = ex.Message });
+
+                return BadRequest(new { MessageError = ex.Message.ToString() });
+            }
         }
     }
 }
