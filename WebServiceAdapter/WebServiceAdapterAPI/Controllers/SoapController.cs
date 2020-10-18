@@ -9,6 +9,13 @@ namespace WebServiceAdapterAPI.Controllers
     [Route("[controller]")]
     public class SoapController : ControllerBase
     {
+
+        [HttpGet]
+        public ActionResult Get()
+        {
+            return Ok(new { Message = "The service is up" });
+        }
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
