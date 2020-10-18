@@ -20,7 +20,7 @@ namespace WebServiceAdapterLibrary
             try
             {
                 var soapEnvelopeXml = CreateSoapEnvelope();
-                var soapRequest = CreateSoapRequest(_soapParameters.Url, _soapParameters.Action);
+                var soapRequest = CreateSoapRequest(_soapParameters.Endpoint, _soapParameters.Action);
 
                 //Inserta dentro del WebRequest el envelope del SOAP
                 InsertSoapEnvelopeIntoSoapRequest(soapEnvelopeXml, soapRequest);
