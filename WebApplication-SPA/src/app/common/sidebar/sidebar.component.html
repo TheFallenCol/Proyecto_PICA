@@ -1,1 +1,38 @@
-<p>sidebar works!</p>
+<mat-sidenav-container class="container-sidenav">
+    <mat-sidenav mode="side" class="menu-sidenav" opened>
+        Sidenav content
+    </mat-sidenav>
+    <mat-sidenav-content class="sidenav-content">        
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <i class="fas fa-futbol"></i>
+        <a class="navbar-brand" routerLinkActive="active" routerLink="">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">        
+            <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="followers" [queryParams]="{ page:1, order:'newest' }">Followers</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="post">Post</a>
+            </li>
+            <li class="nav-item dropdown" routerLinkActive="active">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown Test
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" routerLink="formControllers">Form Controllers</a>
+                <a class="dropdown-item" routerLink="singupFormController">Validation Forms</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" routerLink="templateDrivenForm">Template-driven Forms</a>
+            </div>
+            </li>        
+        </ul>
+        </div>
+    </nav>
+    <router-outlet></router-outlet>
+    <hr/>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
