@@ -11,9 +11,24 @@
                     </span>
                 </div>
                 <hr />
+                <div class="row" style="margin: 0;">
+                    <div class="d-none d-sm-block col-4 no-spaces"></div>
+                    <div class="col-md-4 no-spaces">                    
+                        <button class="btn btn-outline-link" mat-button [matMenuTriggerFor]="menu">
+                            User
+                            <img class="img-thumbnail" src="../../../assets/images/TouresBalon/default-profile.png">
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item>Iniciar Sesion</button>
+                            <button mat-menu-item>Perfil</button>
+                        </mat-menu>
+                    </div>
+                    <div class="d-none d-sm-block col-4 no-spaces"></div>
+                </div>
+                <hr>
             </div>
             <div class="links-menu-style">
-                <div class="row">
+                <div class="row" style="margin: 0;">
                     <div class="col-11 no-spaces">
                         <mat-accordion class="accordion-menu-style" multi>
                             <mat-expansion-panel>
@@ -27,7 +42,7 @@
                                     <i class="fa fa-search fa-link-item" aria-hidden="true"></i>
                                 </a>
                                 <a class="elemnt-link form-control"> Reservar
-                                    <i class="fa fa-calendar fa-link-item" aria-hidden="true"></i>
+                                    <i class="fa fa-calendar-check-o fa-link-item" aria-hidden="true"></i>
                                 </a>
                             </mat-expansion-panel>
                         </mat-accordion>
@@ -88,14 +103,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- <div id="footer">
-            <div class="row">
-                <div class="col-4">
-                    <a>Vuelos<i class="fa fa-plane" aria-hidden="true"></i></a>
-                </div>
-            </div>
-        </div>      -->
+        </div>   
     </mat-sidenav>
     <mat-sidenav-content class="sidenav-content col-lg-10 col-sm-12">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
