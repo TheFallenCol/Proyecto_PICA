@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './common/not-found/not-found.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -23,6 +25,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     BrowserAnimationsModule,
     MatCheckboxModule,
     MatSidenavModule,
+    MatExpansionModule,
+    MatIconModule,
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot([
