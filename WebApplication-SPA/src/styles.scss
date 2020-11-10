@@ -36,14 +36,19 @@ $WebApplication-SPA-theme: mat-light-theme((
 /* You can add global styles to this file, and also import other style files */
 // @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "../node_modules/font-awesome/css/font-awesome.css";
-
-body{
-    padding: 20px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;500;900&display=swap');
 
 .form-control.ng-invalid.ng-dirty.ng-touched{
     border: 2px solid red;
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body { 
+  margin: 0; 
+  font-family: "Noto Sans JP", Roboto, "Helvetica Neue", sans-serif; 
+}
+
+.no-spaces{
+  padding: 0px;
+}
