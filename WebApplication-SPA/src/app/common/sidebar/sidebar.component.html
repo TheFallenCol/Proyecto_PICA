@@ -1,40 +1,134 @@
 <mat-sidenav-container class="container-sidenav">
-    <mat-sidenav mode="side" class="menu-sidenav" opened>
-        Sidenav content
-    </mat-sidenav>
-    <mat-sidenav-content class="sidenav-content">        
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <span style="font-size: 3em; color: Tomato;">
-            <i class="fa fa-star"></i>
-        </span>
-        <a class="navbar-brand" routerLinkActive="active" routerLink="">Home</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">        
-            <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" routerLink="followers" [queryParams]="{ page:1, order:'newest' }">Followers</a>
-            </li>
-            <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" routerLink="post">Post</a>
-            </li>
-            <li class="nav-item dropdown" routerLinkActive="active">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown Test
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" routerLink="formControllers">Form Controllers</a>
-                <a class="dropdown-item" routerLink="singupFormController">Validation Forms</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" routerLink="templateDrivenForm">Template-driven Forms</a>
+    <mat-sidenav mode="side" class="menu-sidenav d-none d-sm-block col-md-2 col-sm-2" opened>
+        <div class="menu-style">
+            <div class="header-menu-style">
+                <div class="col-12 no-spaces">
+                    <a routerLinkActive="active" routerLink="">TouresBalón</a>
+                </div>
+                <div class="col-12 no-spaces" style="padding-top: 1.1rem;">
+                    <span style="font-size: 2.5rem;">
+                        <a routerLinkActive="active" routerLink=""><i class="fa fa-futbol-o" aria-hidden="true"></i></a>
+                    </span>
+                </div>
+                <hr />
             </div>
-            </li>        
-        </ul>
+            <div class="links-menu-style">
+                <div class="row">
+                    <div class="col-11 no-spaces">
+                        <mat-accordion class="accordion-menu-style" multi>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Vuelos
+                                        <mat-icon class="menu-link-item">flight_takeoff</mat-icon>
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <a class="elemnt-link form-control"> Consultar
+                                    <i class="fa fa-search fa-link-item" aria-hidden="true"></i>
+                                </a>
+                                <a class="elemnt-link form-control"> Reservar
+                                    <i class="fa fa-calendar fa-link-item" aria-hidden="true"></i>
+                                </a>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+                    <div class="col-11 no-spaces">
+                        <mat-accordion class="accordion-menu-style" multi>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Hoteles
+                                        <mat-icon class="menu-link-item">hotel</mat-icon>
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <a class="elemnt-link form-control"> Consultar
+                                    <i class="fa fa-search fa-link-item" aria-hidden="true"></i>
+                                </a>
+                                <a class="elemnt-link form-control"> Reservar
+                                    <i class="fa fa-calendar-check-o fa-link-item" aria-hidden="true"></i>
+                                </a>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+                    <div class="col-11 no-spaces">
+                        <mat-accordion class="accordion-menu-style" multi>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Buses
+                                        <mat-icon class="menu-link-item">directions_bus</mat-icon>
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <a class="elemnt-link form-control"> Consultar
+                                    <i class="fa fa-search fa-link-item" aria-hidden="true"></i>
+                                </a>
+                                <a class="elemnt-link form-control"> Reservar
+                                    <i class="fa fa-calendar-check-o fa-link-item" aria-hidden="true"></i>
+                                </a>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+                    <div class="col-11 no-spaces">
+                        <mat-accordion class="accordion-menu-style" multi>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Eventos
+                                        <mat-icon class="menu-link-item">local_activity</mat-icon>
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <a class="elemnt-link form-control"> Consultar
+                                    <i class="fa fa-search fa-link-item" aria-hidden="true"></i>
+                                </a>
+                                <a class="elemnt-link form-control"> Reservar
+                                    <i class="fa fa-calendar-check-o fa-link-item" aria-hidden="true"></i>
+                                </a>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+                </div>
+            </div>
         </div>
-    </nav>
-    <router-outlet></router-outlet>
-    <hr/>
+        <!-- <div id="footer">
+            <div class="row">
+                <div class="col-4">
+                    <a>Vuelos<i class="fa fa-plane" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>      -->
+    </mat-sidenav>
+    <mat-sidenav-content class="sidenav-content col-lg-10 col-sm-12">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" routerLinkActive="active" routerLink="">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" routerLink="followers"
+                            [queryParams]="{ page:1, order:'newest' }">Followers</a>
+                    </li>
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" routerLink="post">Post</a>
+                    </li>
+                    <li class="nav-item dropdown" routerLinkActive="active">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Dropdown Test
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" routerLink="formControllers">Form Controllers</a>
+                            <a class="dropdown-item" routerLink="singupFormController">Validation Forms</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" routerLink="templateDrivenForm">Template-driven Forms</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <router-outlet></router-outlet>
+        <hr />
     </mat-sidenav-content>
 </mat-sidenav-container>
-

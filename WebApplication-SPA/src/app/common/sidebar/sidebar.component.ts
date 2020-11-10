@@ -6,10 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-  events: string[] = [];
-  opened: boolean;
-  showFiller = false;
-
+  panelOpenState = false;
+  
   constructor() { }
 
   ngOnInit(): void {
