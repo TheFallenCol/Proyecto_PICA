@@ -1,5 +1,7 @@
+import { LoginComponent } from './login/login.component';
+import { LoginModule } from './login/login.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -13,14 +15,21 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MenuNavbarComponent } from './common/menu-navbar/menu-navbar.component';
 
+const routes : Routes = [
+  { path:'', component:HomeComponent },
+  { path:'login', component:LoginComponent },
+  { path:'**', component:NotFoundComponent }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
     HomeComponent,    
-    NotFoundComponent
+    NotFoundComponent, 
+    MenuNavbarComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -30,21 +39,9 @@ import { MatMenuModule } from '@angular/material/menu';
     MatIconModule,
     MatMenuModule,
     BrowserModule,
-    AppRoutingModule,    
-    RouterModule.forRoot([
-      {
-        path:'',
-        component:HomeComponent
-      },
-      {
-        path:'login',
-        component:HomeComponent
-      },
-      {
-        path:'**',
-        component:NotFoundComponent
-      }
-    ])
+    AppRoutingModule,
+    LoginModule,  
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -19,7 +19,7 @@
                             <img class="img-thumbnail" src="../../../assets/images/TouresBalon/default-profile.png">
                         </button>
                         <mat-menu #menu="matMenu">
-                            <button mat-menu-item>Iniciar Sesion</button>
+                            <button mat-menu-item routerLink="login">Iniciar Sesion</button>
                             <button mat-menu-item>Perfil</button>
                         </mat-menu>
                     </div>
@@ -38,10 +38,10 @@
                                         <mat-icon class="menu-link-item">flight_takeoff</mat-icon>
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
-                                <a class="elemnt-link form-control"> Consultar
+                                <a class="elemnt-link form-control" routerLink=""> Consultar
                                     <i class="fa fa-search fa-link-item" aria-hidden="true"></i>
                                 </a>
-                                <a class="elemnt-link form-control"> Reservar
+                                <a class="elemnt-link form-control" routerLink="login"> Reservar
                                     <i class="fa fa-calendar-check-o fa-link-item" aria-hidden="true"></i>
                                 </a>
                             </mat-expansion-panel>
@@ -106,36 +106,7 @@
         </div>   
     </mat-sidenav>
     <mat-sidenav-content class="sidenav-content col-lg-10 col-sm-12">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" routerLinkActive="active" routerLink="">Home</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item" routerLinkActive="active">
-                        <a class="nav-link" routerLink="followers"
-                            [queryParams]="{ page:1, order:'newest' }">Followers</a>
-                    </li>
-                    <li class="nav-item" routerLinkActive="active">
-                        <a class="nav-link" routerLink="post">Post</a>
-                    </li>
-                    <li class="nav-item dropdown" routerLinkActive="active">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            Dropdown Test
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" routerLink="formControllers">Form Controllers</a>
-                            <a class="dropdown-item" routerLink="singupFormController">Validation Forms</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" routerLink="templateDrivenForm">Template-driven Forms</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <app-menu-navbar></app-menu-navbar>
         <router-outlet></router-outlet>
         <hr />
     </mat-sidenav-content>
