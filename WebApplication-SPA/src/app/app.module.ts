@@ -1,7 +1,5 @@
-import { LoginComponent } from './login/login.component';
 import { LoginModule } from './login/login.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -16,12 +14,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MenuNavbarComponent } from './common/menu-navbar/menu-navbar.component';
-
-const routes : Routes = [
-  { path:'', component:HomeComponent },
-  { path:'login', component:LoginComponent },
-  { path:'**', component:NotFoundComponent }
-];
 
 @NgModule({
   declarations: [
@@ -39,9 +31,8 @@ const routes : Routes = [
     MatIconModule,
     MatMenuModule,
     BrowserModule,
-    AppRoutingModule,
-    LoginModule,  
-    RouterModule.forRoot(routes)
+    LoginModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
