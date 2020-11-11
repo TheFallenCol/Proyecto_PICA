@@ -14,6 +14,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MenuNavbarComponent } from './common/menu-navbar/menu-navbar.component';
+import { VuelosModule } from './vuelos/vuelos.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { MenuNavbarComponent } from './common/menu-navbar/menu-navbar.component'
     MatMenuModule,
     BrowserModule,
     LoginModule,
+    VuelosModule,
     AppRoutingModule
   ],
   providers: [],
