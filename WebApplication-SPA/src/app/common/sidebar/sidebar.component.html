@@ -12,15 +12,16 @@
                 </div>
                 <hr />
                 <div class="row" style="margin: 0;">
-                    <div class="d-none d-sm-block col-4 no-spaces"></div>
-                    <div class="col-md-4 no-spaces">                    
+                    <div class="d-none d-sm-block col-3 no-spaces"></div>
+                    <div class="col-md-5 no-spaces">                    
                         <button class="btn btn-outline-link" mat-button [matMenuTriggerFor]="menu">
-                            User
-                            <img class="img-thumbnail" src="../../../assets/images/TouresBalon/default-profile.png">
+                            <label>{{nickName}}</label>
+                            <img class="img-thumbnail" [src]="srcImage">
                         </button>
                         <mat-menu #menu="matMenu">
-                            <button mat-menu-item routerLink="login">Iniciar Sesion</button>
-                            <button mat-menu-item>Perfil</button>
+                            <button mat-menu-item routerLink="login" *ngIf="!userLoged">Iniciar Sesion</button>
+                            <button mat-menu-item *ngIf="!userLoged">Perfil</button>
+                            <button mat-menu-item *ngIf="userLoged">Cerrar Sesion</button>
                         </mat-menu>
                     </div>
                     <div class="d-none d-sm-block col-4 no-spaces"></div>
