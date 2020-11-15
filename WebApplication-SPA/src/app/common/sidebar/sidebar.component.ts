@@ -9,7 +9,7 @@ export class SidebarComponent implements OnInit {
   nickName = "Anonymous";
   srcImage = "../../../assets/images/TouresBalon/default-profile.png";
   userLoged: boolean = false;
-
+  
   constructor() { }
 
   ngOnInit(): void {
