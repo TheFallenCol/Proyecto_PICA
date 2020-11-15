@@ -1,4 +1,4 @@
-<form [formGroup]="form" class="container" style="height: 90%;">
+<form [formGroup]="form" class="container" style="height: 90%;" (ngSubmit)="login(form)">
     <div *ngIf="form.errors">
         <div class="alert alert-danger mt-5" id="alerta" *ngIf="form.errors.loginError">
             Nickname or password are wrong
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary" (click)="login()">Login</button>
+            <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Login</button>
         </div>
     </div>
 </form>
