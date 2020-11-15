@@ -1,35 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-  form = new FormGroup({    
-  });  
+export class LoginComponent implements OnInit { 
+  form = new FormGroup({
+    nickname : new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
+  });
 
-  constructor(fb : FormBuilder) { 
-    this.form = fb.group({
-      nickname: ['', Validators.required],
-      password: ['', Validators.required]
-    });
+  constructor() { 
   }
 
-  get Nickname(){
-    return this.form.get('nickname') as FormControl;
+  get nickname(){
+    return this.form.get('nickname');
   }
 
-  get Password(){
-    return this.form.get('password') as FormControl;
+  get password(){
+    return this.form.get('password');
   }
 
   ngOnInit(): void {
   }
 
   login(){
-    console.log(this.Nickname.value, this.Password.value);
+    this.form.setErrors({
+      loginError: true
+    });
+
+    console.log(this.nickname.value, this.password.value);
     // localStorage.setItem(this.Nickname.value, this.Password.value);
   }
 }
