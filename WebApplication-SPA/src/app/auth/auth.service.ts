@@ -6,7 +6,8 @@ import { Role } from './role.enum';
 import { Injectable } from '@angular/core';
 import { Observable, ObservableInput } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import jwt_decoded from 'jwt-decode';
 
 const defaulthAuthStatus : IAuthStatus = {
   role: Role.Anonymous,
@@ -25,10 +26,10 @@ export class AuthService {
     this.authProvider = this.userAuthProvider;
   }
 
-  private userAuthProvider(nickname : string, password: string) : Observable<IServerAuthResponse>{
+  private userAuthProvider(nicknameValue : string, passwordValue: string) : Observable<IServerAuthResponse>{
     return this.httpClient.post<IServerAuthResponse>(
         `${environment.urlServiceAuth}/token`, 
-        JSON.stringify({nickname : nickname, password : password})
+        {nickname : nicknameValue, password : passwordValue}
       )
       .pipe(
         catchError(this.handleError)
@@ -37,7 +38,13 @@ export class AuthService {
 
   login(nickname : string, password: string) : Observable<IAuthStatus>{
     this.logout();
-    return null;
+    const loginResponse = this.authProvider(nickname, password).pipe(
+      map(value => {
+        const result = jwt_decoded(value.access_Token);
+        return result as IAuthStatus;
+      })
+    );
+    return loginResponse;
   }
 
   logout(){
@@ -54,7 +61,7 @@ export class AuthService {
         throw new BadRequestError(error);
 
     throw appError;
-  }    
+  }
 }
 
 export interface IAuthStatus {
