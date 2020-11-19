@@ -4,7 +4,7 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
-ENV ConnectionStrings:AutenthicationDB="Server ENVSERVER;Database ENVDBNAME;User Id ENVID;Password ENVPW;"
+ENV ConnectionStrings:AutenthicationDB="Server=ENVSERVER;Database=ENVDBNAME;User Id=ENVID;Password=ENVPW;"
 ENV ENVSERVER="60.50.51.104\\DESKTOP-18AD8KT,1433"
 ENV ENVDBNAME="AutenthicationDB"
 ENV ENVID="sa"
