@@ -1,3 +1,4 @@
+using System.Text;
 using AutheticationLibrary;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,12 +21,20 @@ namespace AuthenticationAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var config = new StringBuilder
+                (Configuration["ConnectionStrings:AutenthicationDB"]);
+            
+            string conn = 
+                config.Replace("ENVSERVER", Configuration["ENVSERVER"])
+                    .Replace("ENVDBNAME", Configuration["ENVDBNAME"])
+                    .Replace("ENVID", Configuration["ENVID"])
+                    .Replace("ENVPW", Configuration["ENVPW"])
+                    .ToString();
+
             services.AddCors();
 
-            services.AddSingleton<IUnitOfWork>(option => new DataAccess.UnitOfWork(
-                Configuration.GetConnectionString("AutenthicationDB")
-                ));
-            
+            services.AddSingleton<IUnitOfWork>(option => new DataAccess.UnitOfWork(conn));
+
             var tokenProvider = new JwtProvider("TouresBalon.com", "UsuariosPlataforma");
             services.AddSingleton<ITokenProvider>(tokenProvider);
 
