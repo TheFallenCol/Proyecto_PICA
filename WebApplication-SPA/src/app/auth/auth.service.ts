@@ -4,16 +4,10 @@ import { NotFoundError } from './../common/notFound-error';
 import { AppError } from './../common/app-error';
 import { Role } from './role.enum';
 import { Injectable } from '@angular/core';
-import { Observable, ObservableInput } from 'rxjs';
+import { BehaviorSubject, Observable, ObservableInput, throwError} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import jwt_decoded from 'jwt-decode';
-
-const defaulthAuthStatus : IAuthStatus = {
-  role: Role.Anonymous,
-  primarySid : null,
-  name: null
-}
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +15,12 @@ const defaulthAuthStatus : IAuthStatus = {
 export class AuthService {
 
   private readonly authProvider : (nickname:string, password:string) => Observable<IServerAuthResponse>;
+  authStatus = new BehaviorSubject<IAuthStatus>(defaulthAuthStatus);
+  authStatusObserver: Observable<IAuthStatus>;
 
-  constructor(private httpClient : HttpClient) { 
+  constructor(private httpClient : HttpClient) {
     this.authProvider = this.userAuthProvider;
+    this.authStatusObserver = this.authStatus.asObservable();
   }
 
   private userAuthProvider(nicknameValue : string, passwordValue: string) : Observable<IServerAuthResponse>{
@@ -44,11 +41,21 @@ export class AuthService {
         return result as IAuthStatus;
       })
     );
+ 
+    loginResponse.subscribe(
+      res => {
+        this.authStatus.next(res);
+      },
+      err => {
+        this.logout();
+        return throwError(err);
+      });
+
     return loginResponse;
   }
 
   logout(){
-    
+    this.authStatus.next(defaulthAuthStatus);
   }
 
   private handleError(error: Response): ObservableInput<any>{
@@ -65,12 +72,19 @@ export class AuthService {
 }
 
 export interface IAuthStatus {
-  name: string,
+  unique_name: string,
   role : Role,
-  primarySid : number;  
+  primarysid : number,
+  SrcImg : string;
 }
 
 interface IServerAuthResponse {
   access_Token: string;
 }
 
+const defaulthAuthStatus : IAuthStatus = {
+  role: Role.Anonymous,
+  primarysid : null,
+  unique_name: 'Anonymous',
+  SrcImg: "../../../assets/images/TouresBalon/default-profile.png"
+}
