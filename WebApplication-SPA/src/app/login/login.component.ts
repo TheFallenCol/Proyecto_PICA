@@ -1,8 +1,7 @@
 import { AuthService } from './../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +33,6 @@ export class LoginComponent implements OnInit {
   login(form){
     this.authService.login(this.nickname.value, this.password.value)
     .subscribe(authResponse => {
-      console.log(authResponse);
       this.router.navigate(['']);
     },
       error => {

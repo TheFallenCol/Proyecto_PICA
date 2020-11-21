@@ -15,13 +15,13 @@
                     <div class="d-none d-sm-block col-3 no-spaces"></div>
                     <div class="col-md-5 no-spaces">                    
                         <button class="btn btn-outline-link" mat-button [matMenuTriggerFor]="menu">
-                            <label>{{nickName}}</label>
-                            <img class="img-thumbnail" [src]="srcImage">
+                            <label>{{user.unique_name}}</label>
+                            <img class="img-thumbnail" [src]="user.SrcImg">
                         </button>
                         <mat-menu #menu="matMenu">
-                            <button mat-menu-item routerLink="login" *ngIf="!userLoged">Iniciar Sesion</button>
-                            <button mat-menu-item *ngIf="!userLoged">Perfil</button>
-                            <button mat-menu-item *ngIf="userLoged">Cerrar Sesion</button>
+                            <button mat-menu-item routerLink="login" *ngIf="!isUserLoged">Iniciar Sesion</button>
+                            <button mat-menu-item *ngIf="isUserLoged">Perfil</button>
+                            <button mat-menu-item *ngIf="isUserLoged" (click)="logOut()">Cerrar Sesion</button>
                         </mat-menu>
                     </div>
                     <div class="d-none d-sm-block col-4 no-spaces"></div>

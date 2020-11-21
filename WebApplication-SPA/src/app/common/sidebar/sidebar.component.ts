@@ -1,3 +1,4 @@
+import { AuthService, IAuthStatus } from './../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,13 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-  nickName = "Anonymous";
-  srcImage = "../../../assets/images/TouresBalon/default-profile.png";
-  userLoged: boolean = false;
-  
-  constructor() { }
+  user : IAuthStatus = null;
+  isUserLoged : boolean = false;
 
-  ngOnInit(): void {
+  constructor(private authService:AuthService) {
   }
 
+  ngOnInit(): void {
+    this.authService.authStatusObserver.subscribe(userDetails => {
+      this.user = userDetails;
+      if(this.user.primarysid != null)
+        this.isUserLoged = true;
+    });
+  }
+
+  logOut(){
+    this.isUserLoged = false;
+    this.authService.logout();
+  }
 }
