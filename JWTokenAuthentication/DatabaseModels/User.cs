@@ -9,6 +9,6 @@
         public string LastName { get; set; }
         public string Roles { get; set; }
         public string Password { get; set; }
-        public string ScrImg { get; set; }
+        public string SrcImg { get; set; }
     }
 }

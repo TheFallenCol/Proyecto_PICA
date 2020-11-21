@@ -60,7 +60,7 @@ namespace AutheticationLibrary
                 new Claim(ClaimTypes.Name,$"{user.FirstName} {user.LastName}"),
                 new Claim(ClaimTypes.Role, user.Roles),
                 new Claim(ClaimTypes.PrimarySid, user.Id.ToString()),
-                new Claim("scrImg", user.ScrImg)
+                new Claim("SrcImg", user.SrcImg)
             }, "Custom");
 
             SecurityToken token = tokenHandler.CreateJwtSecurityToken(new SecurityTokenDescriptor
