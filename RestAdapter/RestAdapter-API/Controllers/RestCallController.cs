@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using RestAdapterLibrary;
 using System;
 
@@ -25,8 +26,8 @@ namespace RestAdapter_API.Controllers
         {
             try
             {
-                var restAdapter = new RestAdapter(callDescription);
-                return Ok(restAdapter.ExecuteRestCall());
+                var restAdapter = new RestAdapter(callDescription);                
+                return Ok(JObject.Parse(restAdapter.ExecuteRestCall()));
             }
             catch (Exception ex)
             {
