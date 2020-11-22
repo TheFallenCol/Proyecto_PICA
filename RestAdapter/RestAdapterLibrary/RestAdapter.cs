@@ -80,7 +80,7 @@ namespace RestAdapterLibrary
                 if (autorizationBearer != null)
                     client.Authenticator = autorizationBearer;
 
-                client.Timeout = 1500;
+                client.Timeout = 15000;
                 IRestResponse restResponse =
                        ExecuteCall(client, request, _callDescription.HttpVerbose, _callDescription.Body.BodyMediaType, _callDescription.Header.MediaTypeHeader,
                        _callDescription.Body.BodyJsonMessage, _callDescription.Body.BodyRawMessage, _callDescription.Parameters.Parameters);
