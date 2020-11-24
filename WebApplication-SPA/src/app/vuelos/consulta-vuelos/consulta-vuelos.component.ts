@@ -11,12 +11,12 @@ import { startWith, map } from 'rxjs/operators';
 })
 
 export class ConsultaVuelosComponent implements OnInit {
-  form = new FormGroup({
-    tourEventControl : new FormControl('', Validators.required),
+  form = new FormGroup({    
     originControl : new FormControl(),
     destinationControl : new FormControl(),
     departureDateControl : new FormControl(new Date()),
-    arrivalDateControl: new FormControl(new Date())
+    arrivalDateControl: new FormControl(new Date()),
+    bookFlightControl: new FormControl()
   });
   
   cityOptions: string[] = ['Barranquilla[BAQ]', 'Bogota[BOG]', 'Cali[CAL]', 'Pasto[PSO]'];
@@ -114,4 +114,8 @@ export class ConsultaVuelosComponent implements OnInit {
   get arrivalDateControl(){
     return this.form.get('arrivalDateControl');
   }
+
+  get bookFlightControl(){
+    return this.form.get('bookFlightControl');
+  } 
 }
