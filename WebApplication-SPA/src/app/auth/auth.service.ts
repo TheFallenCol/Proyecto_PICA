@@ -8,19 +8,22 @@ import { BehaviorSubject, Observable, ObservableInput, throwError} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import jwt_decoded from 'jwt-decode';
+import { CacheService } from './cache.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService extends CacheService{
 
   private readonly authProvider : (nickname:string, password:string) => Observable<IServerAuthResponse>;
-  authStatus = new BehaviorSubject<IAuthStatus>(defaulthAuthStatus);
-  authStatusObserver: Observable<IAuthStatus>;
-
+  authStatus = new BehaviorSubject<IAuthStatus>(this.getItem('authStatus') || defaulthAuthStatus);
+  
   constructor(private httpClient : HttpClient) {
+    super();
+    this.authStatus.subscribe(authStatus => {
+      this.setItem('authStatus', authStatus);
+    });
     this.authProvider = this.userAuthProvider;
-    this.authStatusObserver = this.authStatus.asObservable();
   }
 
   private userAuthProvider(nicknameValue : string, passwordValue: string) : Observable<IServerAuthResponse>{
@@ -37,6 +40,7 @@ export class AuthService {
     this.logout();
     const loginResponse = this.authProvider(nickname, password).pipe(
       map(value => {
+        this.setToken(value.access_Token);
         const result = jwt_decoded(value.access_Token);
         return result as IAuthStatus;
       })
@@ -55,6 +59,7 @@ export class AuthService {
   }
 
   logout(){
+    this.clearToken();
     this.authStatus.next(defaulthAuthStatus);
   }
 
@@ -68,6 +73,18 @@ export class AuthService {
         throw new BadRequestError(error);
 
     throw appError;
+  }
+
+  private setToken(jwt:string){
+    this.setItem('jwt', jwt);
+  }
+
+  getToken():string{
+    return this.getItem('jwt') || '';
+  }
+
+  private clearToken(){
+    this.removeItem('jwt');
   }
 }
 
