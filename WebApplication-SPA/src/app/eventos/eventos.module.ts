@@ -15,13 +15,18 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
-
+import { MatCardModule } from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
+import { CardEventComponent } from './card-event/card-event.component';
 
 @NgModule({
   declarations: [
-    ConsultarEventosComponent
+    ConsultarEventosComponent,
+    CardEventComponent
   ],
   imports: [
+    MatCardModule,
+    MatDividerModule,
     MatTabsModule,
     MatNativeDateModule,
     MatIconModule,
