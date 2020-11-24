@@ -1,0 +1,90 @@
+<div style="height: 90%;">
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="consultaFormGroup">
+            <form [formGroup]="consultaFormGroup">
+                <div class="container">
+                    <ng-template matStepLabel>Consultar</ng-template>
+                    <mat-form-field class="autocomplete-css">
+                        <input type="text" placeholder="Ciudad" aria-label="Number" matInput [formControl]="destinationControl" 
+                            [matAutocomplete]="autoDestination" required>
+                        <mat-autocomplete autoActiveFirstOption #autoDestination="matAutocomplete">
+                            <mat-option *ngFor="let destinationCity of filteredOptions | async" [value]="destinationCity">
+                            {{destinationCity}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                    <button mat-icon-button color="primary">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                    
+                    <div class="mt-5">
+                        <button mat-raised-button color="primary" matStepperNext>Siguiente</button>
+                    </div>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="bookFormGroup" label="Reserva">
+            <form [formGroup]="bookFormGroup">
+                <div class="container">
+                    <mat-form-field>
+                        <mat-label>Address</mat-label>
+                        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+                    </mat-form-field>
+                    <div>
+                        <button mat-raised-button color="primary" class="mr-1" matStepperPrevious>Atras</button>
+                        <button mat-raised-button color="primary" matStepperNext>Siguiente</button>
+                    </div>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="transportFormGroup" label="Transporte">
+            <form [formGroup]="transportFormGroup">
+                <div class="container">
+                    <mat-tab-group>
+                        <mat-tab label="Vuelos">  
+                            <label class="form-control">Vuelo</label>
+                            <label class="form-control">Vuelo</label>
+                            <label class="form-control">Vuelo</label>
+                            <label class="form-control">Vuelo</label>
+                            <label class="form-control">Vuelo</label>
+                            <label class="form-control">Vuelo</label>
+                            <label class="form-control">Vuelo</label>
+                            <label class="form-control">Vuelo</label>
+                            <label class="form-control">Vuelo</label>
+                        </mat-tab>
+                        <mat-tab label="Buses"> Buses </mat-tab>
+                    </mat-tab-group>                      
+                    <div>
+                        <button mat-raised-button color="primary" class="mr-1" matStepperPrevious>Atras</button>
+                        <button mat-raised-button color="primary" matStepperNext>Omitir</button>
+                    </div>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="hotelFormGroup" label="Hotel">
+            <form [formGroup]="hotelFormGroup">
+                <div class="container">
+                    <mat-form-field>
+                        <mat-label>Address</mat-label>
+                        <input matInput formControlName="fourthCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+                    </mat-form-field>
+                    <div>
+                        <button mat-raised-button color="primary" class="mr-1" matStepperPrevious>Atras</button>
+                        <button mat-raised-button color="primary" matStepperNext>Omitir</button>
+                    </div>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step>
+            <div class="container">
+                <ng-template matStepLabel>Comprar</ng-template>
+                <p>Comprar</p>
+                <div>
+                    <button mat-raised-button color="primary" class="mr-1" matStepperPrevious>Atras</button>
+                    <button mat-raised-button color="primary" class="mr-1" (click)="stepper.reset()">Reinicio</button>
+                    <button mat-raised-button color="primary" (click)="comprarEvento()">Comprar</button>
+                </div>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
+</div>
