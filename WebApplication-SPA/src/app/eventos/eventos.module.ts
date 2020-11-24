@@ -1,4 +1,4 @@
-import { VuelosModule } from './../vuelos/vuelos.module';
+import { AuthService } from './../auth/auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -35,6 +35,9 @@ import {MatTabsModule} from '@angular/material/tabs';
     CommonModule,
     EventosRoutingModule,
     MatStepperModule
+  ],
+  providers:[
+    AuthService
   ]
 })
 export class EventosModule { }
