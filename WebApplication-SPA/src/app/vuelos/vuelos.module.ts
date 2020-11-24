@@ -27,6 +27,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     ReactiveFormsModule,
     CommonModule,
     VuelosRoutingModule
+  ],
+  exports: [
   ]
 })
 export class VuelosModule { }
