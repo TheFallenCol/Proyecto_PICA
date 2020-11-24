@@ -13,8 +13,11 @@ import { startWith, map } from 'rxjs/operators';
 export class ConsultarEventosComponent implements OnInit {
   private jwtToken;
   isLinear = true;
+  searchEventCards = false;
+  searchEventIsDisabled = true;
+
   consultaFormGroup = new FormGroup({
-    destinationControl: new FormControl('', Validators.required)
+    citiesEvents: new FormControl('', Validators.required)
   });
   
   bookFormGroup = new FormGroup({
@@ -29,41 +32,6 @@ export class ConsultarEventosComponent implements OnInit {
     fourthCtrl: new FormControl('', Validators.required)
   })
 
-  tourEvents: TourEvent[] = [
-    {
-      tourEventId:1, 
-      shortDescription: 'Pasto - Santa Fe', 
-      description: 'Cuartos de Final - Liga Betplay I 2020', 
-      eventDate: new Date('2020-11-22'),
-      eventCity:'Pasto[PSO]',
-      value: 50000
-    },
-    {
-      tourEventId:2, 
-      shortDescription: 'Junior - Tolima', 
-      description: 'Cuartos de Final - Liga Betplay I 2020', 
-      eventDate: new Date('2020-11-22'),
-      eventCity:'Barranquilla[BAQ]',
-      value: 50000
-    },
-    {
-      tourEventId:3, 
-      shortDescription: 'La Equidad - Deportivo Cali', 
-      description: 'Cuartos de Final - Liga Betplay I 2020', 
-      eventDate: new Date('2020-11-21'),
-      eventCity:'Bogota[BOG]',
-      value: 50000
-    },
-    {
-      tourEventId:4, 
-      shortDescription: 'America - A. Nacional', 
-      description: 'Cuartos de Final - Liga Betplay I 2020', 
-      eventDate: new Date('2020-11-21'),
-      eventCity:'Cali[CAL]',
-      value: 50000
-    },
-  ];
-
   cityOptions: string[] = ['Barranquilla[BAQ]', 'Bogota[BOG]', 'Cali[CAL]', 'Pasto[PSO]'];
   filteredOptions: ObservableInput<string[]>;
 
@@ -71,19 +39,25 @@ export class ConsultarEventosComponent implements OnInit {
     this.authService.authStatus.subscribe(authStatus => {
       this.jwtToken = this.authService.getToken();
     });
-
-    console.log(this.authService.authStatus.value);
   }
 
   ngOnInit(): void {
-    this.filteredOptions = this.destinationControl.valueChanges
+    this.filteredOptions = this.citiesEvents.valueChanges
       .pipe(
         startWith(''),
-        map(value => this.arrivalFilter(value))
+        map(value => this.cityEventFilter(value))
       );
   }
+  
+  get citiesEvents(){
+    return this.consultaFormGroup.get('citiesEvents');
+  }
 
-  private arrivalFilter(value: string): string[] {
+  get thirdCtrl(){
+    return this.consultaFormGroup.get('thirdCtrl');
+  }
+
+  private cityEventFilter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.cityOptions.filter(option => option.toLowerCase().includes(filterValue));
   }
@@ -92,12 +66,22 @@ export class ConsultarEventosComponent implements OnInit {
     console.log(this.authService.authStatus.value);
   }
 
-  get destinationControl(){
-    return this.consultaFormGroup.get('destinationControl');
+  changeCity(){
+    if(this.citiesEvents.value !== ''){
+      this.searchEventIsDisabled = false;
+      this.searchEventCards = false;
+      return;
+    }
+    
+    this.searchEventIsDisabled = true;    
   }
 
-  get thirdCtrl(){
-    return this.consultaFormGroup.get('thirdCtrl');
+  searchEvents(){
+    this.searchEventCards = true;
+  }
+
+  onFavoriteSelected(evento:TourEvent){
+    console.log(evento);
   }
 
 }

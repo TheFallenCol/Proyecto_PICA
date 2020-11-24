@@ -5,18 +5,20 @@
                 <div class="container">
                     <ng-template matStepLabel>Consultar</ng-template>
                     <mat-form-field class="autocomplete-css">
-                        <input type="text" placeholder="Ciudad" aria-label="Number" matInput [formControl]="destinationControl" 
-                            [matAutocomplete]="autoDestination" required>
+                        <input type="text" placeholder="Ciudad" aria-label="Number" matInput [formControl]="citiesEvents" 
+                            [matAutocomplete]="autoDestination" (ngModelChange)="changeCity()" required>
                         <mat-autocomplete autoActiveFirstOption #autoDestination="matAutocomplete">
                             <mat-option *ngFor="let destinationCity of filteredOptions | async" [value]="destinationCity">
                             {{destinationCity}}
                             </mat-option>
                         </mat-autocomplete>
                     </mat-form-field>
-                    <button mat-icon-button color="primary">
+                    <button mat-icon-button color="primary" (click)="searchEvents()" [disabled]="searchEventIsDisabled">
                         <mat-icon>search</mat-icon>
                     </button>
-                    
+                    <div class="mt-5" *ngIf="searchEventCards">
+                        <app-card-event [citySearch]="citiesEvents" (selected)="onFavoriteSelected($event)"></app-card-event>
+                    </div>
                     <div class="mt-5">
                         <button mat-raised-button color="primary" matStepperNext>Siguiente</button>
                     </div>
