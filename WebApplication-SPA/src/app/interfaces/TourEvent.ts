@@ -4,5 +4,7 @@ export interface TourEvent {
     description: string;
     eventDate: Date;
     eventCity: string;
+    imgLocal:string;
+    imgVisitante:string;
     value: number;
 }

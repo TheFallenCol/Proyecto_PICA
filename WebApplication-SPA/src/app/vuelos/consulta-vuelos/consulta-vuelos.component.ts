@@ -30,6 +30,8 @@ export class ConsultaVuelosComponent implements OnInit {
       description: 'Cuartos de Final - Liga Betplay I 2020', 
       eventDate: new Date('2020-11-22'),
       eventCity:'Pasto[PSO]',
+      imgLocal:'Pasto.png',
+      imgVisitante:'Santafe.png',
       value: 50000
     },
     {
@@ -38,6 +40,8 @@ export class ConsultaVuelosComponent implements OnInit {
       description: 'Cuartos de Final - Liga Betplay I 2020', 
       eventDate: new Date('2020-11-22'),
       eventCity:'Barranquilla[BAQ]',
+      imgLocal:'Junior.png',
+      imgVisitante:'Tolima.png',
       value: 50000
     },
     {
@@ -46,6 +50,8 @@ export class ConsultaVuelosComponent implements OnInit {
       description: 'Cuartos de Final - Liga Betplay I 2020', 
       eventDate: new Date('2020-11-21'),
       eventCity:'Bogota[BOG]',
+      imgLocal:'Equidad.png',
+      imgVisitante:'Cali.png',
       value: 50000
     },
     {
@@ -54,6 +60,8 @@ export class ConsultaVuelosComponent implements OnInit {
       description: 'Cuartos de Final - Liga Betplay I 2020', 
       eventDate: new Date('2020-11-21'),
       eventCity:'Cali[CAL]',
+      imgLocal:'America.png',
+      imgVisitante:'Nacional.png',
       value: 50000
     },
   ];
