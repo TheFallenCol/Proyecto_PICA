@@ -14,7 +14,7 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.authStatusObserver.subscribe(userDetails => {
+    this.authService.authStatus.subscribe(userDetails => {
       this.user = userDetails;
       if(this.user.primarysid != null)
         this.isUserLoged = true;
