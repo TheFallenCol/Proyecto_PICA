@@ -1,3 +1,4 @@
+import { EventosModule } from './eventos/eventos.module';
 import { LoginModule } from './login/login.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
@@ -33,7 +34,8 @@ import { VuelosModule } from './vuelos/vuelos.module';
     MatMenuModule,
     BrowserModule,
     LoginModule,
-    VuelosModule,
+    EventosModule,
+    VuelosModule,    
     AppRoutingModule
   ],
   providers: [],
