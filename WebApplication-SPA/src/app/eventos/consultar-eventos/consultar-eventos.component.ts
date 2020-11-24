@@ -1,3 +1,4 @@
+import { AuthService } from './../../auth/auth.service';
 import { TourEvent } from './../../interfaces/TourEvent';
 import { ObservableInput } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -10,6 +11,7 @@ import { startWith, map } from 'rxjs/operators';
   styleUrls: ['./consultar-eventos.component.scss']
 })
 export class ConsultarEventosComponent implements OnInit {
+  private jwtToken;
   isLinear = true;
   consultaFormGroup = new FormGroup({
     destinationControl: new FormControl('', Validators.required)
@@ -65,7 +67,13 @@ export class ConsultarEventosComponent implements OnInit {
   cityOptions: string[] = ['Barranquilla[BAQ]', 'Bogota[BOG]', 'Cali[CAL]', 'Pasto[PSO]'];
   filteredOptions: ObservableInput<string[]>;
 
-  constructor() { }
+  constructor(private authService : AuthService) { 
+    this.authService.authStatus.subscribe(authStatus => {
+      this.jwtToken = this.authService.getToken();
+    });
+
+    console.log(this.authService.authStatus.value);
+  }
 
   ngOnInit(): void {
     this.filteredOptions = this.destinationControl.valueChanges
@@ -81,7 +89,7 @@ export class ConsultarEventosComponent implements OnInit {
   }
 
   comprarEvento(){
-    console.log("Compró el evento");
+    console.log(this.authService.authStatus.value);
   }
 
   get destinationControl(){
