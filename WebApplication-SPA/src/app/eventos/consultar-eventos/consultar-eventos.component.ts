@@ -15,15 +15,12 @@ export class ConsultarEventosComponent implements OnInit {
   isLinear = true;
   searchEventCards = false;
   searchEventIsDisabled = true;
+  selectedEvent:TourEvent;
 
   consultaFormGroup = new FormGroup({
     citiesEvents: new FormControl('', Validators.required)
   });
   
-  bookFormGroup = new FormGroup({
-    secondCtrl: new FormControl('', Validators.required)
-  });
-
   transportFormGroup = new FormGroup({
     thirdCtrl: new FormGroup({})
   })
@@ -81,6 +78,7 @@ export class ConsultarEventosComponent implements OnInit {
   }
 
   onFavoriteSelected(evento:TourEvent){
-    console.log(evento);
+    this.selectedEvent = evento;
+    console.log(this.selectedEvent);
   }
 }
