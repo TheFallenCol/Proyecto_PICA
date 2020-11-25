@@ -19,9 +19,6 @@
                     <div class="mt-5" *ngIf="searchEventCards">
                         <app-card-event [citySearch]="citiesEvents" (selected)="onFavoriteSelected($event)"></app-card-event>
                     </div>
-                    <div class="mt-5">
-                        <button mat-raised-button color="primary" matStepperNext>Siguiente</button>
-                    </div>
                 </div>
             </form>
         </mat-step>
@@ -84,7 +81,7 @@
                 <div>
                     <button mat-raised-button color="primary" class="mr-1" matStepperPrevious>Atras</button>
                     <button mat-raised-button color="primary" class="mr-1" (click)="stepper.reset()">Reinicio</button>
-                    <button mat-raised-button color="primary" (click)="comprarEvento()">Comprar</button>
+                    <button mat-raised-button color="primary" (click)="buyEvent()">Comprar</button>
                 </div>
             </div>
         </mat-step>

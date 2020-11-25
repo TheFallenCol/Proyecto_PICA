@@ -62,7 +62,7 @@ export class ConsultarEventosComponent implements OnInit {
     return this.cityOptions.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  comprarEvento(){
+  buyEvent(){
     console.log(this.authService.authStatus.value);
   }
 
@@ -83,5 +83,4 @@ export class ConsultarEventosComponent implements OnInit {
   onFavoriteSelected(evento:TourEvent){
     console.log(evento);
   }
-
 }
