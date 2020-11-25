@@ -11,11 +11,13 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { FlightCardComponent } from './flight-card/flight-card.component';
 
 @NgModule({
   declarations: [
     ConsultaVuelosComponent,
-    ReservaVuelosComponent
+    ReservaVuelosComponent,
+    FlightCardComponent
   ],
   imports: [
     MatNativeDateModule,
@@ -29,6 +31,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     VuelosRoutingModule
   ],
   exports: [
+    ConsultaVuelosComponent
   ]
 })
 export class VuelosModule { }
