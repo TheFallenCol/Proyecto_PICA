@@ -9,8 +9,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class CardEventComponent implements OnInit {
   @Input('citySearch') citySearch : string;
   @Output('selected') click = new EventEmitter();
-
   srcImage = '../../../assets/images/Equipos/';
+  selectedEvent:TourEvent;
 
   tourEvents: TourEvent[] = [
     {
@@ -53,6 +53,16 @@ export class CardEventComponent implements OnInit {
       imgVisitante:'Nacional.png',
       value: 50000
     },
+    {
+      tourEventId:5, 
+      shortDescription: 'Santa Fe - Pasto', 
+      description: 'Cuartos de Final - Liga Betplay I 2020', 
+      eventDate: new Date('2020-11-28'),
+      eventCity:'Bogota[BOG]',
+      imgLocal:'Santafe.png',
+      imgVisitante:'Pasto.png',
+      value: 50000
+    }
   ];
   
   constructor() { }
@@ -61,14 +71,7 @@ export class CardEventComponent implements OnInit {
     console.log(this.citySearch);
   }
 
-  onClick(){
-    this.click.emit(<TourEvent>{ 
-      tourEventId:1, 
-      shortDescription: 'Pasto - Santa Fe', 
-      description: 'Cuartos de Final - Liga Betplay I 2020', 
-      eventDate: new Date('2020-11-22'),
-      eventCity:'Pasto[PSO]',
-      value: 50000
-    });
+  selectingEvent(selectedEvent:TourEvent){       
+    this.click.emit(<TourEvent>selectedEvent);    
   }
 }

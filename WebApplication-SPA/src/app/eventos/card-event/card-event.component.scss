@@ -3,20 +3,36 @@
     width: auto;
 }
 
-.content-header{
-    border-bottom: 1px solid grey;
+mat-card{
+    background-color: #e2e6e9;
 }
 
-.content-container{
-    display: inline-flex;
-    margin-top: 1rem;
-}
+.card-object{
+    .content-header{
+        border-bottom: 1px solid grey;
+    }
 
-.banner-images{
-    margin-left: 3rem;
-}
+    .content-container{
+        display: inline-flex;
+        width: 100%;
 
-.informacion-evento{
-    margin-left: 3rem;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        .banner-images{
+            margin-top: 1rem;
+        }
+
+        .informacion-evento{
+            margin-top: 1rem;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+            .bloqueInformacion1{
+                display: block;
+            }
+    
+            .bloqueInformacion2{
+                display: block;
+            }
+
+            
+        }
+    }
 }
