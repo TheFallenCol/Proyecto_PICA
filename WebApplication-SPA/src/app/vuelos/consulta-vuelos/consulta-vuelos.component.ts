@@ -1,6 +1,6 @@
-import { TourEvent } from './../../interfaces/TourEvent';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Vuelos } from './../../interfaces/Vuelos';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Component, Input, OnInit, Output, EventEmitter, OnChanges } from '@angular/core';
 import { ObservableInput } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
@@ -10,65 +10,63 @@ import { startWith, map } from 'rxjs/operators';
   styleUrls: ['./consulta-vuelos.component.scss']
 })
 
-export class ConsultaVuelosComponent implements OnInit {
+export class ConsultaVuelosComponent implements OnInit, OnChanges {
+  @Input('bookingEventCode') bookingEventCode : string;
+  @Output('searchFlightsEvent') click = new EventEmitter();
+
   form = new FormGroup({    
     originControl : new FormControl(),
     destinationControl : new FormControl(),
     departureDateControl : new FormControl(new Date()),
     arrivalDateControl: new FormControl(new Date()),
-    bookFlightControl: new FormControl()
+    bookFlightControl: new FormControl(),
+    quantityPassangers: new FormControl()
   });
   
   cityOptions: string[] = ['Barranquilla[BAQ]', 'Bogota[BOG]', 'Cali[CAL]', 'Pasto[PSO]'];
   filteredOptions: ObservableInput<string[]>;
   originOptions: ObservableInput<string[]>;
 
-  tourEvents: TourEvent[] = [
+  flightList: Vuelos[] = [
     {
-      tourEventId:1, 
-      shortDescription: 'Pasto - Santa Fe', 
-      description: 'Cuartos de Final - Liga Betplay I 2020', 
-      eventDate: new Date('2020-11-22'),
-      eventCity:'Pasto[PSO]',
-      imgLocal:'Pasto.png',
-      imgVisitante:'Santafe.png',
-      value: 50000
+      Origin: "Bag",
+      Destination: "Ger",
+      StartDate: new Date('2020-12-01'),
+      EndDate: new Date('2020-12-05'),
+      Price: 1000000,
+      FlightCode: "41asd81asd9"
     },
     {
-      tourEventId:2, 
-      shortDescription: 'Junior - Tolima', 
-      description: 'Cuartos de Final - Liga Betplay I 2020', 
-      eventDate: new Date('2020-11-22'),
-      eventCity:'Barranquilla[BAQ]',
-      imgLocal:'Junior.png',
-      imgVisitante:'Tolima.png',
-      value: 50000
+      Origin: "Bag",
+      Destination: "Ger",
+      StartDate: new Date('2020-12-01'),
+      EndDate: new Date('2020-12-05'),
+      Price: 2000000,
+      FlightCode: "78981asd9"
     },
     {
-      tourEventId:3, 
-      shortDescription: 'La Equidad - Deportivo Cali', 
-      description: 'Cuartos de Final - Liga Betplay I 2020', 
-      eventDate: new Date('2020-11-21'),
-      eventCity:'Bogota[BOG]',
-      imgLocal:'Equidad.png',
-      imgVisitante:'Cali.png',
-      value: 50000
+      Origin: "Bag",
+      Destination: "Ger",
+      StartDate: new Date('2020-12-01'),
+      EndDate: new Date('2020-12-05'),
+      Price: 3000000,
+      FlightCode: "4848151asd9"
     },
     {
-      tourEventId:4, 
-      shortDescription: 'America - A. Nacional', 
-      description: 'Cuartos de Final - Liga Betplay I 2020', 
-      eventDate: new Date('2020-11-21'),
-      eventCity:'Cali[CAL]',
-      imgLocal:'America.png',
-      imgVisitante:'Nacional.png',
-      value: 50000
-    },
+      Origin: "Bag",
+      Destination: "Ger",
+      StartDate: new Date('2020-12-01'),
+      EndDate: new Date('2020-12-05'),
+      Price: 4000000,
+      FlightCode: "49891881asd9"
+    }
   ];
 
   constructor() { }
 
   ngOnInit(): void {
+    this.quantityPassangers.setValue(1);
+
     this.filteredOptions = this.destinationControl.valueChanges
       .pipe(
         startWith(''),
@@ -82,6 +80,10 @@ export class ConsultaVuelosComponent implements OnInit {
     );
   }
 
+  ngOnChanges(){
+    this.bookFlightControl.setValue(this.bookingEventCode);
+  }
+
   private arrivalFilter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.cityOptions.filter(option => option.toLowerCase().includes(filterValue));
@@ -92,15 +94,8 @@ export class ConsultaVuelosComponent implements OnInit {
     return this.cityOptions.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  searchFlights(form: FormGroup){
-    console.log(form);
-  }
-
-  changeEvent(){    
-    if(!this.tourEventControl.value)
-      return this.destinationControl.setValue('');
-
-    this.destinationControl.setValue(this.tourEvents[this.tourEventControl.value - 1].eventCity);    
+  searchFlights(){
+    this.click.emit(<Vuelos[]>this.flightList);
   }
 
   get tourEventControl(){
@@ -125,5 +120,9 @@ export class ConsultaVuelosComponent implements OnInit {
 
   get bookFlightControl(){
     return this.form.get('bookFlightControl');
+  } 
+
+  get quantityPassangers(){
+    return this.form.get('quantityPassangers');
   } 
 }

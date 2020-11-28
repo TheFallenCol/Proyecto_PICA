@@ -1,4 +1,4 @@
-<form [formGroup]="form" class="container" style="height: 90%;" (ngSubmit)="searchFlights(form)">    
+<form [formGroup]="form" class="container" style="height: 90%;" (ngSubmit)="searchFlights()">    
     <div *ngIf="form.errors">
         <div class="alert alert-danger mt-5" id="alerta" *ngIf="form.errors.loginError">
             Nickname or password are wrong
@@ -15,17 +15,6 @@
                     <mat-label>Codigo Reserva Evento</mat-label>
                     <input matInput placeholder="Codigo Reserva Evento" [formControl]="bookFlightControl" required>
                 </mat-form-field>
-                <!-- <mat-form-field appearance="fill">
-                    <mat-label>Seleccione Evento</mat-label>
-                    <mat-select [formControl]="tourEventControl" (ngModelChange)="changeEvent()" required>
-                        <mat-option>--</mat-option>
-                        <mat-option *ngFor="let event of tourEvents" [value]="event.tourEventId">
-                            {{event.shortDescription}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="tourEventControl.hasError('required')">Please select an event</mat-error>
-                    <mat-hint>{{tourEventControl.value?.sound}}</mat-hint>
-                </mat-form-field> -->
                 <mat-form-field class="autocomplete-css">
                     <input type="text" placeholder="Origen" aria-label="Number" matInput [formControl]="originControl" 
                         [matAutocomplete]="autoOrigin">
@@ -57,21 +46,18 @@
                     <input matInput [matDatepicker]="arrivalPicker" [formControl]="arrivalDateControl">
                     <mat-datepicker-toggle matSuffix [for]="arrivalPicker"></mat-datepicker-toggle>
                     <mat-datepicker #arrivalPicker></mat-datepicker>
-                </mat-form-field>                
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Cantidad Pasajeros</mat-label>
+                    <input type="number" [formControl]="quantityPassangers" matInput minlength="1" maxlength="1"
+                    max="9" min="1" placeholder="Cantidad Pasajeros"
+                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                    >
+                </mat-form-field>
             </div>
             <div class="form-group">
                 <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Buscar</button>
             </div>
-            <!-- <div class="form-group row">
-                <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                <div class="col-sm-10">
-                    <input formControlName="password" type="password" class="form-control" id="inputPassword"
-                        placeholder="Password">
-                    <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
-                        <div *ngIf="password.errors.required">Password is required</div>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </form>
