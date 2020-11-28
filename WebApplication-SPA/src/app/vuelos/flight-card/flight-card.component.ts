@@ -1,5 +1,7 @@
+import { FormGroup } from '@angular/forms';
+import { Vuelos } from './../../interfaces/Vuelos';
 import { TourEvent } from './../../interfaces/TourEvent';
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-flight-card',
@@ -7,71 +9,18 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./flight-card.component.scss']
 })
 export class FlightCardComponent implements OnInit {
-  @Input('citySearch') citySearch : string;
+  @Input('flightsInformation') flightsInformation: Vuelos[];
   @Output('selected') click = new EventEmitter();
   srcImage = '../../../assets/images/Equipos/';
-  selectedEvent:TourEvent;
+  selectedEvent: Vuelos;
 
-  tourEvents: TourEvent[] = [
-    {
-      tourEventId:1, 
-      shortDescription: 'Pasto - Santa Fe', 
-      description: 'Cuartos de Final - Liga Betplay I 2020', 
-      eventDate: new Date('2020-11-22'),
-      eventCity:'Pasto[PSO]',
-      imgLocal:'Pasto.png',
-      imgVisitante:'Santafe.png',
-      value: 50000
-    },
-    {
-      tourEventId:2, 
-      shortDescription: 'Junior - Tolima', 
-      description: 'Cuartos de Final - Liga Betplay I 2020', 
-      eventDate: new Date('2020-11-22'),
-      eventCity:'Barranquilla[BAQ]',
-      imgLocal:'Junior.png',
-      imgVisitante:'Tolima.png',
-      value: 50000
-    },
-    {
-      tourEventId:3, 
-      shortDescription: 'La Equidad - Deportivo Cali', 
-      description: 'Cuartos de Final - Liga Betplay I 2020', 
-      eventDate: new Date('2020-11-21'),
-      eventCity:'Bogota[BOG]',
-      imgLocal:'Equidad.png',
-      imgVisitante:'Cali.png',
-      value: 50000
-    },
-    {
-      tourEventId:4, 
-      shortDescription: 'America - A. Nacional', 
-      description: 'Cuartos de Final - Liga Betplay I 2020', 
-      eventDate: new Date('2020-11-21'),
-      eventCity:'Cali[CAL]',
-      imgLocal:'America.png',
-      imgVisitante:'Nacional.png',
-      value: 50000
-    },
-    {
-      tourEventId:5, 
-      shortDescription: 'Santa Fe - Pasto', 
-      description: 'Cuartos de Final - Liga Betplay I 2020', 
-      eventDate: new Date('2020-11-28'),
-      eventCity:'Bogota[BOG]',
-      imgLocal:'Santafe.png',
-      imgVisitante:'Pasto.png',
-      value: 50000
-    }
-  ];
-  
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.citySearch);
+    console.log(this.flightsInformation);
   }
 
-  selectingEvent(selectedEvent:TourEvent){       
-    this.click.emit(<TourEvent>selectedEvent);    
+  selectedFlight(selectedEvent: Vuelos) {
+    this.click.emit(<Vuelos>selectedEvent);
   }
 }
