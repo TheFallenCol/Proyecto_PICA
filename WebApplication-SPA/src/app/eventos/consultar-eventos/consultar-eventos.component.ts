@@ -1,3 +1,4 @@
+import { Vuelos } from './../../interfaces/Vuelos';
 import { AuthService } from './../../auth/auth.service';
 import { TourEvent } from './../../interfaces/TourEvent';
 import { ObservableInput } from 'rxjs';
@@ -16,6 +17,9 @@ export class ConsultarEventosComponent implements OnInit {
   searchEventCards = false;
   searchEventIsDisabled = true;
   selectedEvent:TourEvent;
+  selectedFlight:Vuelos;
+  bookingEventCode: string;
+  foundedFlights: Vuelos[];
 
   consultaFormGroup = new FormGroup({
     citiesEvents: new FormControl('', Validators.required)
@@ -77,8 +81,18 @@ export class ConsultarEventosComponent implements OnInit {
     this.searchEventCards = true;
   }
 
+  onFlightSelected(flight:Vuelos){
+    this.selectedFlight = flight;
+    console.log(this.selectedFlight);
+  }
+
+  onFlightSearchResponse(flights:Vuelos[]){
+    this.foundedFlights = flights;
+  }
+
   onFavoriteSelected(evento:TourEvent){
     this.selectedEvent = evento;
+    this.bookingEventCode = "12BD348FD";
     console.log(this.selectedEvent);
   }
 }
