@@ -19,7 +19,7 @@
                         <mat-icon>search</mat-icon>
                     </button>
                     <div class="mt-5" *ngIf="searchEventCards">
-                        <app-card-event [citySearch]="citiesEvents" (selected)="onFavoriteSelected($event)">
+                        <app-card-event [citySearch]="citiesEvents" (selected)="onEventSelected($event)">
                         </app-card-event>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                             <app-consulta-vuelos [bookingEventCode]="bookingEventCode"
                                 (searchFlightsEvent)="onFlightSearchResponse($event)"></app-consulta-vuelos>
                             <app-flight-card *ngIf="foundedFlights !== undefined" [flightsInformation]="foundedFlights"
-                                (selected)="onFlightSelected($event)"></app-flight-card>
+                             [informationCard]="false" (selected)="onFlightSelected($event)"></app-flight-card>
                         </div>
                         <div class="zºtab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
                     </div>
@@ -70,8 +70,8 @@
         </mat-step>
         <mat-step>
             <div class="container">
-                <ng-template matStepLabel>Comprar</ng-template>
-                <p>Comprar</p>
+                <!-- <ng-template matStepLabel>Comprar</ng-template> -->                
+                <app-shopping-summary [selectedFlight]="selectedFlight" ></app-shopping-summary>
                 <div>
                     <button mat-raised-button color="primary" class="mr-1" matStepperPrevious>Atras</button>
                     <button mat-raised-button color="primary" class="mr-1" (click)="stepper.reset()">Reinicio</button>
