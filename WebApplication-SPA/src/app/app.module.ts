@@ -1,3 +1,4 @@
+import { ComprasModule } from './compras/compras.module';
 import { AppErrorHandler } from './common/app-error-handler';
 import { EventosModule } from './eventos/eventos.module';
 import { LoginModule } from './login/login.module';
@@ -36,7 +37,8 @@ import { VuelosModule } from './vuelos/vuelos.module';
     BrowserModule,
     LoginModule,
     EventosModule,
-    VuelosModule,    
+    VuelosModule,
+    ComprasModule,
     AppRoutingModule
   ],
   providers: [
