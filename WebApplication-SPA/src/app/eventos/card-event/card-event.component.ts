@@ -73,7 +73,7 @@ export class CardEventComponent implements OnInit {
     setTimeout(() => { 
       this.loadingElement = false;
     }, 5000);
-    console.log(this.citySearch);
+    console.log('Buscar eventos por ciudad ->',this.citySearch);
   }
 
   selectingEvent(selectedEvent:TourEvent){
