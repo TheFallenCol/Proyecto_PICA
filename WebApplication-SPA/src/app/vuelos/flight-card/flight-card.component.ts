@@ -1,6 +1,4 @@
-import { FormGroup } from '@angular/forms';
 import { Vuelos } from './../../interfaces/Vuelos';
-import { TourEvent } from './../../interfaces/TourEvent';
 import { Component, Input, OnInit, Output, EventEmitter, OnChanges } from '@angular/core';
 
 @Component({
@@ -10,6 +8,7 @@ import { Component, Input, OnInit, Output, EventEmitter, OnChanges } from '@angu
 })
 export class FlightCardComponent implements OnInit {
   @Input('flightsInformation') flightsInformation: Vuelos[];
+  @Input('informationCard') informationCard: boolean = false;
   @Output('selected') click = new EventEmitter();
   srcImage = '../../../assets/images/Equipos/';
   selectedEvent: Vuelos;
@@ -17,7 +16,7 @@ export class FlightCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.flightsInformation);
+    console.log('Buscar vuelos post ->',this.flightsInformation);
   }
 
   selectedFlight(selectedEvent: Vuelos) {
