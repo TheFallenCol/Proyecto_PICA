@@ -8,13 +8,14 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit { 
-  
-  loginError : string = '';
+export class LoginComponent implements OnInit {   
   form = new FormGroup({
     nickname : new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
   });
+
+  loginError : string = '';
+  loadingElement: boolean = false;
 
   constructor(private authService:AuthService, private router:Router) {
   }
@@ -31,16 +32,17 @@ export class LoginComponent implements OnInit {
   }
 
   login(form){
+    this.loadingElement = true;
     this.authService.login(this.nickname.value, this.password.value)
     .subscribe(authResponse => {
-      this.router.navigate(['']);
+      this.loadingElement = false;
+      this.router.navigate(['eventos/consulta']);
     },
       error => {
+        this.loadingElement = false;
         this.form.setErrors({
           loginError: true
         });
     });
-
-    // localStorage.setItem(this.Nickname.value, this.Password.value);
   }
 }
