@@ -18,7 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule} from '@angular/material/divider';
 import { CardEventComponent } from './card-event/card-event.component';
 import { VuelosModule } from '../vuelos/vuelos.module';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -27,6 +27,7 @@ import { VuelosModule } from '../vuelos/vuelos.module';
   ],
   imports: [
     VuelosModule,
+    MatProgressSpinnerModule,
     MatCardModule,
     MatDividerModule,
     MatNativeDateModule,
