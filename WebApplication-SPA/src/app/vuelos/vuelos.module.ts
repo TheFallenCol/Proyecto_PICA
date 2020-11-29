@@ -14,6 +14,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule} from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FlightCardComponent } from './flight-card/flight-card.component';
 
 @NgModule({
@@ -24,6 +25,7 @@ import { FlightCardComponent } from './flight-card/flight-card.component';
   ],
   imports: [
     MatStepperModule,
+    MatProgressSpinnerModule,
     MatButtonModule,
     MatNativeDateModule,
     MatDatepickerModule,
