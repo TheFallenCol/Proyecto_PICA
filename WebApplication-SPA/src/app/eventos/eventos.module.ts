@@ -1,3 +1,4 @@
+import { ComprasModule } from './../compras/compras.module';
 import { AuthService } from './../auth/auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -27,6 +28,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   ],
   imports: [
     VuelosModule,
+    ComprasModule,
     MatProgressSpinnerModule,
     MatCardModule,
     MatDividerModule,
@@ -45,6 +47,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   ],
   providers:[
     AuthService
+  ],
+  exports:[
   ]
 })
 export class EventosModule { }
