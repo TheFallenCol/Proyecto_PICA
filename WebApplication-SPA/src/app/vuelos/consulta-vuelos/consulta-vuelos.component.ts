@@ -29,32 +29,44 @@ export class ConsultaVuelosComponent implements OnInit, OnChanges {
 
   flightList: Vuelos[] = [
     {
-      Origin: "Bag",
-      Destination: "Ger",
+      Supplier: "Avianca",
+      OriginAirport: "BOG",
+      DestinationAirport:"GER",
+      Origin: "Bogota",
+      Destination: "Germania",
       StartDate: new Date('2020-12-01'),
       EndDate: new Date('2020-12-05'),
       Price: 1000000,
       FlightCode: "41asd81asd9"
     },
     {
-      Origin: "Bag",
-      Destination: "Ger",
+      Supplier: "Avianca",
+      OriginAirport: "BOG",
+      DestinationAirport:"GER",
+      Origin: "Bogota",
+      Destination: "Germania",
       StartDate: new Date('2020-12-01'),
       EndDate: new Date('2020-12-05'),
       Price: 2000000,
       FlightCode: "78981asd9"
     },
     {
-      Origin: "Bag",
-      Destination: "Ger",
+      Supplier: "Amadeus",
+      OriginAirport: "BOG",
+      DestinationAirport:"GER",
+      Origin: "Bogota",
+      Destination: "Germania",
       StartDate: new Date('2020-12-01'),
       EndDate: new Date('2020-12-05'),
       Price: 3000000,
       FlightCode: "4848151asd9"
     },
     {
-      Origin: "Bag",
-      Destination: "Ger",
+      Supplier: "ABC",
+      OriginAirport: "BOG",
+      DestinationAirport:"GER",
+      Origin: "Bogota",
+      Destination: "Germania",
       StartDate: new Date('2020-12-01'),
       EndDate: new Date('2020-12-05'),
       Price: 4000000,
