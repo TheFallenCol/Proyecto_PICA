@@ -1,33 +1,38 @@
-<div *ngFor="let event of tourEvents" class="card-event">
-    <div class="card-object">
-        <mat-card class="mt-2">
-            <mat-card-header class="content-header">
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>{{event.shortDescription}}</mat-card-title>
-            </mat-card-header>
-            <mat-card-content class="content-container row">
-                <div class="col-1"></div>
-                <div class="banner-images col-3">
-                    <img src="{{srcImage + event.imgLocal}}" class="img-fluid img-size" alt="Responsive image">
-                    - vs -
-                    <img src="{{srcImage + event.imgVisitante}}" class="img-fluid img-size" alt="Responsive image">
-                </div>
-                <div class="informacion-evento col-8">
-                    <div class="row">
-                        <div class="bloqueInformacion1 col">
-                            <h2 class="display-3">Ciudad: {{event.eventCity}}</h2>
-                            <h2 class="display-3">Fecha: {{event.eventDate | date:'shortDate'}}</h2>
-                        </div>
-                        <div class="bloqueInformacion2 col">
-                            <h2 class="display-3">Ciudad: {{event.description}}</h2>
-                            <h2 class="display-3">Fecha: {{event.value | currency:'COP':"symbol-narrow":'3.0-2'}}</h2>
-                        </div>
-                        <div class="bloqueBotones col-2">                            
-                            <button mat-raised-button color="primary" class="mr-1" (click)="selectingEvent(event)" matStepperNext>Reservar</button>
+<div style="height: auto;">
+    <div *ngFor="let event of tourEvents" class="card-event">
+        <div class="card-object">
+            <mat-card class="mt-2">
+                <mat-card-header class="content-header">
+                    <div mat-card-avatar class="example-header-image"></div>
+                    <mat-card-title>{{event.shortDescription}}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="content-container row">
+                    <div class="col-1"></div>
+                    <div class="banner-images col-3">
+                        <img src="{{srcImage + event.imgLocal}}" class="img-fluid img-size" alt="Responsive image">
+                        - vs -
+                        <img src="{{srcImage + event.imgVisitante}}" class="img-fluid img-size" alt="Responsive image">
+                    </div>
+                    <div class="informacion-evento col-8">
+                        <div class="row">
+                            <div class="bloqueInformacion1 col">
+                                <h2 class="display-3">Ciudad: {{event.eventCity}}</h2>
+                                <h2 class="display-3">Fecha: {{event.eventDate | date:'shortDate'}}</h2>
+                            </div>
+                            <div class="bloqueInformacion2 col">
+                                <h2 class="display-3">Ciudad: {{event.description}}</h2>
+                                <h2 class="display-3">Fecha: {{event.value | currency:'COP':"symbol-narrow":'3.0-2'}}</h2>
+                            </div>
+                            <div class="bloqueBotones col-2">                            
+                                <button mat-raised-button color="primary" class="mr-1" (click)="selectingEvent(event)" matStepperNext>Reservar</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </mat-card-content>        
-        </mat-card>
+                </mat-card-content>        
+            </mat-card>
+        </div>
+    </div>
+    <div *ngIf="loadingElement" class="loader">
+        <mat-spinner class="loading-image"></mat-spinner>
     </div>
 </div>

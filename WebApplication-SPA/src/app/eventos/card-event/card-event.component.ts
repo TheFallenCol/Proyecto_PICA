@@ -11,6 +11,7 @@ export class CardEventComponent implements OnInit {
   @Output('selected') click = new EventEmitter();
   srcImage = '../../../assets/images/Equipos/';
   selectedEvent:TourEvent;
+  loadingElement:boolean=false;
 
   tourEvents: TourEvent[] = [
     {
@@ -68,10 +69,14 @@ export class CardEventComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.loadingElement = true;
+    setTimeout(() => { 
+      this.loadingElement = false;
+    }, 5000);
     console.log(this.citySearch);
   }
 
-  selectingEvent(selectedEvent:TourEvent){       
-    this.click.emit(<TourEvent>selectedEvent);    
+  selectingEvent(selectedEvent:TourEvent){
+    this.click.emit(<TourEvent>selectedEvent);
   }
 }
