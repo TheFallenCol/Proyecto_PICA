@@ -13,7 +13,7 @@ import { startWith, map } from 'rxjs/operators';
 export class ConsultaVuelosComponent implements OnInit, OnChanges {
   @Input('bookingEventCode') bookingEventCode : string;
   @Output('searchFlightsEvent') click = new EventEmitter();
-
+  
   form = new FormGroup({    
     originControl : new FormControl(),
     destinationControl : new FormControl(),
@@ -26,6 +26,7 @@ export class ConsultaVuelosComponent implements OnInit, OnChanges {
   cityOptions: string[] = ['Barranquilla[BAQ]', 'Bogota[BOG]', 'Cali[CAL]', 'Pasto[PSO]'];
   filteredOptions: ObservableInput<string[]>;
   originOptions: ObservableInput<string[]>;
+  loadingElement:boolean=false;
 
   flightList: Vuelos[] = [
     {
@@ -107,7 +108,11 @@ export class ConsultaVuelosComponent implements OnInit, OnChanges {
   }
 
   searchFlights(){
-    this.click.emit(<Vuelos[]>this.flightList);
+    this.loadingElement=true;
+    setTimeout(() => {
+      this.loadingElement=false;
+      this.click.emit(<Vuelos[]>this.flightList);
+    }, 1000);    
   }
 
   get tourEventControl(){
