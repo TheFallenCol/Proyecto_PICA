@@ -5,6 +5,7 @@ import { ObservableInput } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { startWith, map } from 'rxjs/operators';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-consultar-eventos',
@@ -20,6 +21,7 @@ export class ConsultarEventosComponent implements OnInit {
   selectedFlight:Vuelos;
   bookingEventCode: string;
   foundedFlights: Vuelos[];
+  uuidBookingCode: uuidv4;
 
   consultaFormGroup = new FormGroup({
     citiesEvents: new FormControl('', Validators.required)
@@ -78,11 +80,15 @@ export class ConsultarEventosComponent implements OnInit {
   }
 
   searchEvents(){
+    this.uuidBookingCode = uuidv4();
     this.searchEventCards = true;
+
   }
 
   onFlightSelected(flight:Vuelos){
     this.selectedFlight = flight;
+    console.log(this.uuidBookingCode);
+    console.log(this.selectedEvent);
     console.log(this.selectedFlight);
   }
 
@@ -90,9 +96,8 @@ export class ConsultarEventosComponent implements OnInit {
     this.foundedFlights = flights;
   }
 
-  onFavoriteSelected(evento:TourEvent){
+  onEventSelected(evento:TourEvent){
     this.selectedEvent = evento;
     this.bookingEventCode = evento.tourEventId.toString();
-    console.log(this.selectedEvent);
   }
 }
