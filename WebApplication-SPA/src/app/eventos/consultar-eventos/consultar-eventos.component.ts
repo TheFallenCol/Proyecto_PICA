@@ -92,7 +92,7 @@ export class ConsultarEventosComponent implements OnInit {
 
   onFavoriteSelected(evento:TourEvent){
     this.selectedEvent = evento;
-    this.bookingEventCode = "12BD348FD";
+    this.bookingEventCode = evento.tourEventId.toString();
     console.log(this.selectedEvent);
   }
 }
