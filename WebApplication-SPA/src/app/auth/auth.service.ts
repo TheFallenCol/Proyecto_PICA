@@ -102,6 +102,6 @@ interface IServerAuthResponse {
 const defaulthAuthStatus : IAuthStatus = {
   role: Role.Anonymous,
   primarysid : null,
-  unique_name: 'Anonymous',
+  unique_name: '',
   SrcImg: "../../../assets/images/TouresBalon/default-profile.png"
 }
