@@ -18,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MenuNavbarComponent } from './common/menu-navbar/menu-navbar.component';
 import { VuelosModule } from './vuelos/vuelos.module';
+import { DialogDataComponent } from './common/dialog-data/dialog-data.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { VuelosModule } from './vuelos/vuelos.module';
     SidebarComponent,
     HomeComponent,    
     NotFoundComponent, 
-    MenuNavbarComponent
+    MenuNavbarComponent, DialogDataComponent
   ],
   imports: [
     BrowserAnimationsModule,
