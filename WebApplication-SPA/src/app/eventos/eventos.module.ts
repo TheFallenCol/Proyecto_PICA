@@ -20,15 +20,19 @@ import { MatDividerModule} from '@angular/material/divider';
 import { CardEventComponent } from './card-event/card-event.component';
 import { VuelosModule } from '../vuelos/vuelos.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { InformationCardComponentComponent } from './information-card-component/information-card-component.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     ConsultarEventosComponent,
-    CardEventComponent
+    CardEventComponent,
+    InformationCardComponentComponent
   ],
   imports: [
     VuelosModule,
     ComprasModule,
+    MatDialogModule,
     MatProgressSpinnerModule,
     MatCardModule,
     MatDividerModule,
