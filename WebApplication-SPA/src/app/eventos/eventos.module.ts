@@ -1,3 +1,5 @@
+import { HotelModule } from './../hotel/hotel.module';
+import { EventosService } from './../services/eventos.service';
 import { ComprasModule } from './../compras/compras.module';
 import { AuthService } from './../auth/auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -30,6 +32,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     InformationCardComponentComponent
   ],
   imports: [
+    HotelModule,
     VuelosModule,
     ComprasModule,
     MatDialogModule,
@@ -50,7 +53,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatStepperModule
   ],
   providers:[
-    AuthService
+    AuthService,
+    EventosService
   ],
   exports:[
   ]
