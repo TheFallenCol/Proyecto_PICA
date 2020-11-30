@@ -57,10 +57,7 @@
         <mat-step [stepControl]="hotelFormGroup" label="Hotel">
             <form [formGroup]="hotelFormGroup">
                 <div class="container">
-                    <mat-form-field>
-                        <mat-label>Address</mat-label>
-                        <input matInput formControlName="fourthCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
-                    </mat-form-field>
+                    <app-search-filters></app-search-filters>                    
                     <div>
                         <button mat-raised-button color="primary" class="mr-1" matStepperPrevious>Atras</button>
                         <button mat-raised-button color="primary" matStepperNext>Omitir</button>

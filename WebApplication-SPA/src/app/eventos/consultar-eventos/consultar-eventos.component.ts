@@ -1,3 +1,4 @@
+import { EventosService } from './../../services/eventos.service';
 import { DialogDataComponent } from './../../common/dialog-data/dialog-data.component';
 import { Vuelos } from './../../interfaces/Vuelos';
 import { AuthService } from './../../auth/auth.service';
@@ -46,13 +47,17 @@ export class ConsultarEventosComponent implements OnInit {
   cityOptions: string[] = ['Barranquilla[BAQ]', 'Bogota[BOG]', 'Cali[CAL]', 'Pasto[PSO]'];
   filteredOptions: ObservableInput<string[]>;
 
-  constructor(private authService : AuthService, public dialog: MatDialog) { 
+  constructor(private authService : AuthService, private eventosService : EventosService, public dialog: MatDialog) { 
     this.authService.authStatus.subscribe(authStatus => {
       this.jwtToken = this.authService.getToken();
     });
+
+    // this.eventosService.getCitiesEvents().subscribe(response => {
+    //   console.log(response);
+    // });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.filteredOptions = this.citiesEvents.valueChanges
       .pipe(
         startWith(''),
