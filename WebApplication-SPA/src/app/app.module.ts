@@ -1,3 +1,5 @@
+import { HotelModule } from './hotel/hotel.module';
+import { EventosService } from './services/eventos.service';
 import { ComprasModule } from './compras/compras.module';
 import { AppErrorHandler } from './common/app-error-handler';
 import { EventosModule } from './eventos/eventos.module';
@@ -40,10 +42,12 @@ import { DialogDataComponent } from './common/dialog-data/dialog-data.component'
     EventosModule,
     VuelosModule,
     ComprasModule,
+    HotelModule,
     AppRoutingModule
   ],
   providers: [
-    { provide: ErrorHandler, useClass: AppErrorHandler }
+    { provide: ErrorHandler, useClass: AppErrorHandler },
+    EventosService
   ],
   bootstrap: [AppComponent]
 })
