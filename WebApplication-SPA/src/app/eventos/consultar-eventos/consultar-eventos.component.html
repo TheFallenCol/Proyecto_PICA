@@ -69,15 +69,48 @@
             </form>
         </mat-step>
         <mat-step>
-            <div class="container">
-                <!-- <ng-template matStepLabel>Comprar</ng-template> -->                
-                <app-shopping-summary [selectedFlight]="selectedFlight" ></app-shopping-summary>
-                <div>
-                    <button mat-raised-button color="primary" class="mr-1" matStepperPrevious>Atras</button>
-                    <button mat-raised-button color="primary" class="mr-1" (click)="stepper.reset()">Reinicio</button>
-                    <button mat-raised-button color="primary" (click)="buyEvent()">Comprar</button>
+            <form [formGroup]="shoppingFormGroup">
+                <ng-template matStepLabel>Comprar</ng-template>
+                <div class="container">
+                    <div class="form-group">
+                        <mat-form-field class="mr-2">
+                            <mat-label>Nombres</mat-label>
+                            <input matInput placeholder="Nombres" [formControl]="name" required>
+                        </mat-form-field>
+                        <mat-form-field class="mr-2">
+                            <mat-label>Apellidos</mat-label>
+                            <input matInput placeholder="Apellidos" [formControl]="surname" required>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field class="mr-2">
+                            <mat-label>Numero Tarjeta de Crédito</mat-label>
+                            <input matInput type="number" minlength="16" maxlength="16" placeholder="Numero tarjeta crédito" [formControl]="creditCardNumber"
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            required >
+                        </mat-form-field>
+                        <mat-form-field class="mr-2">
+                            <mat-label>CVV</mat-label>
+                            <input matInput type="number" placeholder="CVV" [formControl]="cvvNumber" minlength="3" maxlength="3" 
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            required>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <h1><small class="text-muted">Evento</small></h1>
+                        <app-information-card-component [tourEventToShow]="selectedEvent" [multipleTours]="false"></app-information-card-component>
+                        <div *ngIf="selectedFlight !== undefined">
+                            <h1 class="mt-4"><small class="text-muted">Vuelo</small></h1>
+                            <app-shopping-summary [selectedFlight]="selectedFlight"></app-shopping-summary>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button mat-raised-button color="primary" class="mr-1" matStepperPrevious>Atras</button>
+                        <button mat-raised-button color="primary" class="mr-1" (click)="stepper.reset()">Reinicio</button>
+                        <button mat-raised-button color="primary" (click)="buyEvent()">Comprar</button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </mat-step>
     </mat-horizontal-stepper>
 </div>

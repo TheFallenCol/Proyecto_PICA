@@ -1,3 +1,4 @@
+import { DialogDataComponent } from './../../common/dialog-data/dialog-data.component';
 import { Vuelos } from './../../interfaces/Vuelos';
 import { AuthService } from './../../auth/auth.service';
 import { TourEvent } from './../../interfaces/TourEvent';
@@ -6,6 +7,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { startWith, map } from 'rxjs/operators';
 import { v4 as uuidv4 } from 'uuid';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-consultar-eventos',
@@ -28,17 +30,23 @@ export class ConsultarEventosComponent implements OnInit {
   });
   
   transportFormGroup = new FormGroup({
-    thirdCtrl: new FormGroup({})
   })
 
   hotelFormGroup = new FormGroup({
     fourthCtrl: new FormControl('', Validators.required)
   })
 
+  shoppingFormGroup = new FormGroup({
+    name: new FormControl('', Validators.required),
+    surname: new FormControl('', Validators.required),
+    creditCardNumber: new FormControl('', [Validators.required, Validators.maxLength(16), Validators.minLength(16)]),
+    cvvNumber: new FormControl('', [Validators.required, Validators.maxLength(3), Validators.minLength(3)])
+  });
+
   cityOptions: string[] = ['Barranquilla[BAQ]', 'Bogota[BOG]', 'Cali[CAL]', 'Pasto[PSO]'];
   filteredOptions: ObservableInput<string[]>;
 
-  constructor(private authService : AuthService) { 
+  constructor(private authService : AuthService, public dialog: MatDialog) { 
     this.authService.authStatus.subscribe(authStatus => {
       this.jwtToken = this.authService.getToken();
     });
@@ -56,8 +64,20 @@ export class ConsultarEventosComponent implements OnInit {
     return this.consultaFormGroup.get('citiesEvents');
   }
 
-  get thirdCtrl(){
-    return this.consultaFormGroup.get('thirdCtrl');
+  get name(){
+    return this.shoppingFormGroup.get('name');
+  }
+
+  get surname(){
+    return this.shoppingFormGroup.get('surname');
+  }
+
+  get creditCardNumber(){
+    return this.shoppingFormGroup.get('creditCardNumber');
+  }  
+
+  get cvvNumber(){
+    return this.shoppingFormGroup.get('cvvNumber');
   }
 
   private cityEventFilter(value: string): string[] {
@@ -66,7 +86,19 @@ export class ConsultarEventosComponent implements OnInit {
   }
 
   buyEvent(){
-    console.log(this.authService.authStatus.value);
+    if(this.authService.authStatus.value.role === ""){
+      this.dialog.open(DialogDataComponent, {
+        data: {
+          message: 'Para poder realizar la compra debe estar logeado'
+        }
+      });
+      return;
+    }
+    else{
+      console.log(this.uuidBookingCode);
+      console.log(this.selectedEvent);
+      console.log(this.selectedFlight);
+    }
   }
 
   changeCity(){
@@ -87,9 +119,6 @@ export class ConsultarEventosComponent implements OnInit {
 
   onFlightSelected(flight:Vuelos){
     this.selectedFlight = flight;
-    console.log(this.uuidBookingCode);
-    console.log(this.selectedEvent);
-    console.log(this.selectedFlight);
   }
 
   onFlightSearchResponse(flights:Vuelos[]){
