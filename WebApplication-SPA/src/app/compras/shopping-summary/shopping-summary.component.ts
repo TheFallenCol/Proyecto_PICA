@@ -1,6 +1,5 @@
-import { TourEvent } from './../../interfaces/TourEvent';
 import { Vuelos } from './../../interfaces/Vuelos';
-import { Component, Input, OnInit, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-shopping-summary',
@@ -17,9 +16,6 @@ export class ShoppingSummaryComponent implements OnInit, OnChanges{
   }
 
   ngOnChanges(changes: SimpleChanges): void {    
-    console.log(this.selectedFlight);
-    console.log(this.arrayFlights);
-
     if(this.selectedFlight !== undefined){
       this.arrayFlights = [];
       this.arrayFlights.push(this.selectedFlight);
