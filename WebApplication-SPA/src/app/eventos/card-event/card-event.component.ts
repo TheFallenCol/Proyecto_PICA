@@ -1,3 +1,4 @@
+import { EventosService } from './../../services/eventos.service';
 import { TourEvent } from './../../interfaces/TourEvent';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
@@ -66,10 +67,10 @@ export class CardEventComponent implements OnInit {
     }
   ];
   
-  constructor() { }
+  constructor(private eventosService: EventosService) { }
 
   ngOnInit(): void {
-    this.loadingElement = true;
+    this.loadingElement = true;    
     setTimeout(() => { 
       this.loadingElement = false;
     }, 2000);
