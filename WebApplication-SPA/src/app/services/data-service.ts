@@ -12,6 +12,14 @@ import { ObservableInput } from 'rxjs';
 export class DataService{
   constructor(private url, private http : HttpClient) { }
   
+  get serviceUrl(){
+    return this.url;
+  }
+
+  get httpClient(){
+    return this.http;
+  }
+
   getAll(){
     return this.http.get(this.url)
     .pipe(
@@ -40,7 +48,7 @@ export class DataService{
     );
   }
 
-  private handleError(error: Response): ObservableInput<any>{
+   handleError(error: Response): ObservableInput<any>{
     let appError = new AppError(error);
     
     if(error.status === 404 )
@@ -50,5 +58,5 @@ export class DataService{
         throw new BadRequestError(error);
 
     throw appError;
-  }    
+  }
 }
