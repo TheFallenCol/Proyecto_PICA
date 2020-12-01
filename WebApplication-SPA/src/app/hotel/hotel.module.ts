@@ -15,10 +15,12 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { CardHotelComponent } from './card-hotel/card-hotel.component';
 
 @NgModule({
   declarations: [
-    SearchFiltersComponent
+    SearchFiltersComponent,
+    CardHotelComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     ReactiveFormsModule
   ],
   exports:[
-    SearchFiltersComponent
+    SearchFiltersComponent,
+    CardHotelComponent
   ]
 })
 export class HotelModule { }
