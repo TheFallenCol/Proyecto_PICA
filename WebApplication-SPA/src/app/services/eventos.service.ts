@@ -1,4 +1,4 @@
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, retry } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from './data-service';
 import { Injectable } from '@angular/core';
@@ -20,16 +20,17 @@ export class EventosService extends DataService {
       observe: 'response'
     })    
     .pipe(
-      map(response => {
-      }),
-      catchError(this.handleError)
+      map(response => response.body),
+      catchError(this.handleError),
+      retry(3)
     );
   }
 
   getCitiesEvents(){    
     return this.httpClient.get(this.serviceUrl+'/GetCiudades')    
     .pipe(
-      catchError(this.handleError)
+      catchError(this.handleError),
+      retry(3)
     );
   }
 }
