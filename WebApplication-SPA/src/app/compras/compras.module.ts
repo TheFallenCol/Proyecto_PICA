@@ -1,3 +1,4 @@
+import { HotelModule } from './../hotel/hotel.module';
 import { VuelosModule } from './../vuelos/vuelos.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -13,6 +14,7 @@ import { ShoppingSummaryComponent } from './shopping-summary/shopping-summary.co
   imports: [
     CommonModule,
     ComprasRoutingModule,
+    HotelModule,
     VuelosModule,
 
   ],
