@@ -20,8 +20,8 @@
                                 <h2 class="display-3">Fecha: {{event.eventDate | date:'shortDate'}}</h2>
                             </div>
                             <div class="bloqueInformacion2 col">
-                                <h2 class="display-3">Ciudad: {{event.description}}</h2>
-                                <h2 class="display-3">Fecha: {{event.value | currency:'COP':"symbol-narrow":'3.0-2'}}</h2>
+                                <h2 class="display-3">Descripción: {{event.description}}</h2>
+                                <h2 class="display-3">Precio: {{event.value | currency:'COP':"symbol-narrow":'3.0-2'}}</h2>
                             </div>
                             <div class="bloqueBotones col-2">                            
                                 <button mat-raised-button color="primary" class="mr-1" (click)="selectingEvent(event)" matStepperNext>Reservar</button>
