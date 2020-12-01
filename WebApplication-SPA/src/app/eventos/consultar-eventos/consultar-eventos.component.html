@@ -43,9 +43,9 @@
                             <app-consulta-vuelos [bookingEventCode]="bookingEventCode"
                                 (searchFlightsEvent)="onFlightSearchResponse($event)"></app-consulta-vuelos>
                             <app-flight-card *ngIf="foundedFlights !== undefined" [flightsInformation]="foundedFlights"
-                             [informationCard]="false" (selected)="onFlightSelected($event)"></app-flight-card>
+                                [informationCard]="false" (selected)="onFlightSelected($event)"></app-flight-card>
                         </div>
-                        <div class="zºtab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
                     </div>
                     <div class="mt-2">
                         <button mat-raised-button color="primary" class="mr-1" matStepperPrevious>Atras</button>
@@ -57,7 +57,18 @@
         <mat-step [stepControl]="hotelFormGroup" label="Hotel">
             <form [formGroup]="hotelFormGroup">
                 <div class="container">
-                    <app-search-filters></app-search-filters>                    
+                    <ng-template matStepLabel>Hotel</ng-template>
+                    <p class="h2 title-style">Reserva con nosotros los mejores Hoteles</p>
+                    <div class="mt-5" style="height: auto;">
+                        <div class="row">
+                            <div class="col-2">
+                                <app-search-filters [bookingEventCode]="bookingEventCode" (searchFlightsEvent)="onHotelSearchResponse($event)"></app-search-filters>
+                            </div>
+                            <div class="col-9">
+                                <app-card-hotel [hotelInformation]="foundedHotels" [informationCard]="false" (selected)="onHotelSelected($event)"></app-card-hotel>
+                            </div>
+                        </div>
+                    </div>
                     <div>
                         <button mat-raised-button color="primary" class="mr-1" matStepperPrevious>Atras</button>
                         <button mat-raised-button color="primary" matStepperNext>Omitir</button>
@@ -82,28 +93,36 @@
                     <div class="form-group">
                         <mat-form-field class="mr-2">
                             <mat-label>Numero Tarjeta de Crédito</mat-label>
-                            <input matInput type="number" minlength="16" maxlength="16" placeholder="Numero tarjeta crédito" [formControl]="creditCardNumber"
-                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                            required >
+                            <input matInput type="number" minlength="16" maxlength="16"
+                                placeholder="Numero tarjeta crédito" [formControl]="creditCardNumber"
+                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                required>
                         </mat-form-field>
                         <mat-form-field class="mr-2">
                             <mat-label>CVV</mat-label>
-                            <input matInput type="number" placeholder="CVV" [formControl]="cvvNumber" minlength="3" maxlength="3" 
-                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                            required>
+                            <input matInput type="number" placeholder="CVV" [formControl]="cvvNumber" minlength="3"
+                                maxlength="3"
+                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                required>
                         </mat-form-field>
                     </div>
                     <div>
                         <h1><small class="text-muted">Evento</small></h1>
-                        <app-information-card-component [tourEventToShow]="selectedEvent" [multipleTours]="false"></app-information-card-component>
+                        <app-information-card-component [tourEventToShow]="selectedEvent" [multipleTours]="false">
+                        </app-information-card-component>
                         <div *ngIf="selectedFlight !== undefined">
                             <h1 class="mt-4"><small class="text-muted">Vuelo</small></h1>
                             <app-shopping-summary [selectedFlight]="selectedFlight"></app-shopping-summary>
                         </div>
+                        <div *ngIf="selectedHotel !== undefined">
+                            <h1 class="mt-4"><small class="text-muted">Hoteles</small></h1>
+                            <app-shopping-summary [selectedHotel]="selectedHotel"></app-shopping-summary>
+                        </div>
                     </div>
                     <div class="mt-3">
                         <button mat-raised-button color="primary" class="mr-1" matStepperPrevious>Atras</button>
-                        <button mat-raised-button color="primary" class="mr-1" (click)="stepper.reset()">Reinicio</button>
+                        <button mat-raised-button color="primary" class="mr-1"
+                            (click)="stepper.reset()">Reinicio</button>
                         <button mat-raised-button color="primary" (click)="buyEvent()">Comprar</button>
                     </div>
                 </div>
