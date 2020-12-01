@@ -44,7 +44,7 @@ export class ConsultarEventosComponent implements OnInit {
     cvvNumber: new FormControl('', [Validators.required, Validators.maxLength(3), Validators.minLength(3)])
   });
 
-  cityOptions: string[] = ['Barranquilla[BAQ]', 'Bogota[BOG]', 'Cali[CAL]', 'Pasto[PSO]'];
+  cityOptions: string[];
   filteredOptions: ObservableInput<string[]>;
 
   constructor(private authService : AuthService, private eventosService : EventosService, public dialog: MatDialog) { 
@@ -52,17 +52,20 @@ export class ConsultarEventosComponent implements OnInit {
       this.jwtToken = this.authService.getToken();
     });
 
-    // this.eventosService.getCitiesEvents().subscribe(response => {
-    //   console.log(response);
-    // });
-  }
-
-  ngOnInit(): void {    
-    this.filteredOptions = this.citiesEvents.valueChanges
+    this.eventosService.getCitiesEvents().subscribe(response => {
+      this.cityOptions = [];      
+      response.forEach(element => {
+        this.cityOptions.push(element['ciudadUbicacion']);
+      });
+      this.filteredOptions = this.citiesEvents.valueChanges
       .pipe(
         startWith(''),
         map(value => this.cityEventFilter(value))
       );
+    });
+  }
+
+  ngOnInit(): void {
   }
   
   get citiesEvents(){
@@ -112,14 +115,12 @@ export class ConsultarEventosComponent implements OnInit {
       this.searchEventCards = false;
       return;
     }
-    
     this.searchEventIsDisabled = true;    
   }
 
   searchEvents(){
     this.uuidBookingCode = uuidv4();
     this.searchEventCards = true;
-
   }
 
   onFlightSelected(flight:Vuelos){

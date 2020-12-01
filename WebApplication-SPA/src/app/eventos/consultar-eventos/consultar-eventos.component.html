@@ -19,7 +19,7 @@
                         <mat-icon>search</mat-icon>
                     </button>
                     <div class="mt-5" *ngIf="searchEventCards">
-                        <app-card-event [citySearch]="citiesEvents" (selected)="onEventSelected($event)">
+                        <app-card-event [citySearch]="citiesEvents.value" (selected)="onEventSelected($event)">
                         </app-card-event>
                     </div>
                 </div>
