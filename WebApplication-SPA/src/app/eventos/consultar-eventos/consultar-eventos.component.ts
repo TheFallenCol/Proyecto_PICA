@@ -99,7 +99,7 @@ export class ConsultarEventosComponent implements OnInit {
     if(this.authService.authStatus.value.role === ""){
       this.dialog.open(DialogDataComponent, {
         data: {
-          message: 'Para poder realizar la compra debe estar logeado'
+          message: 'Para poder realizar la compra debe haber iniciado sesión'
         }
       });
       return;
