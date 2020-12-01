@@ -11,7 +11,6 @@ export class CardEventComponent implements OnInit {
   @Input('citySearch') citySearch : string;
   @Output('selected') click = new EventEmitter();
   srcImage = '../../../assets/images/Equipos/';
-  selectedEvent:TourEvent;
   loadingElement:boolean=false;
 
   tourEvents: TourEvent[];
