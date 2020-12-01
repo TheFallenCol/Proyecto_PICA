@@ -16,7 +16,11 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "options": {            
+          "options": {
+            "allowedCommonJsDependencies":[
+              "uuidv4",
+              "uuid"
+            ],       
             "outputPath": "dist/WebApplication-SPA",
             "index": "src/index.html",
             "main": "src/main.ts",
