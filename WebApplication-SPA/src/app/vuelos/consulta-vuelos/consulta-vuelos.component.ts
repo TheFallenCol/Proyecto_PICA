@@ -1,3 +1,4 @@
+import { VuelosService } from './../../services/vuelos.service';
 import { Vuelos } from './../../interfaces/Vuelos';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, Input, OnInit, Output, EventEmitter, OnChanges } from '@angular/core';
@@ -23,7 +24,8 @@ export class ConsultaVuelosComponent implements OnInit, OnChanges {
     quantityPassangers: new FormControl()
   });
   
-  cityOptions: string[] = ['Barranquilla[BAQ]', 'Bogota[BOG]', 'Cali[CAL]', 'Pasto[PSO]'];
+  citiesAirports : CitiesAerports[];
+  cityOptions: string[];
   filteredOptions: ObservableInput<string[]>;
   originOptions: ObservableInput<string[]>;
   loadingElement:boolean=false;
@@ -75,22 +77,31 @@ export class ConsultaVuelosComponent implements OnInit, OnChanges {
     }
   ];
 
-  constructor() { }
+  constructor(private vuelosService : VuelosService) { }
 
   ngOnInit(): void {
     this.quantityPassangers.setValue(1);
 
-    this.filteredOptions = this.destinationControl.valueChanges
+    this.vuelosService.getAirports().subscribe(response => {
+      this.citiesAirports = response as CitiesAerports[];
+      this.cityOptions = [];
+
+      response.forEach(element => {        
+        this.cityOptions.push(element['concatenado']);
+      });
+      
+      this.filteredOptions = this.destinationControl.valueChanges
       .pipe(
         startWith(''),
         map(value => this.arrivalFilter(value))
       );
 
-    this.originOptions = this.originControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this.originFilter(value))
-    );
+      this.originOptions = this.originControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this.originFilter(value))
+      );
+    })
   }
 
   ngOnChanges(){
@@ -108,7 +119,10 @@ export class ConsultaVuelosComponent implements OnInit, OnChanges {
   }
 
   searchFlights(){
-    this.loadingElement=true;
+    this.loadingElement=true;    
+    let destinationCity = this.citiesAirports.filter(predicate => predicate.concatenado == this.destinationControl.value);
+    let originCity = this.citiesAirports.filter(predicate => predicate.concatenado == this.originControl.value);
+
     setTimeout(() => {
       this.loadingElement=false;
       this.click.emit(<Vuelos[]>this.flightList);
@@ -142,4 +156,11 @@ export class ConsultaVuelosComponent implements OnInit, OnChanges {
   get quantityPassangers(){
     return this.form.get('quantityPassangers');
   } 
+}
+
+interface CitiesAerports {
+  id: number,
+  iata: string,
+  ciudadUbicacion: string,
+  concatenado: string
 }
