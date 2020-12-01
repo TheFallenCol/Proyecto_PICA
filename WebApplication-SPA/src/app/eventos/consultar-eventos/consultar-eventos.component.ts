@@ -1,3 +1,4 @@
+import { Hotel } from 'src/app/interfaces/Hotel';
 import { EventosService } from './../../services/eventos.service';
 import { DialogDataComponent } from './../../common/dialog-data/dialog-data.component';
 import { Vuelos } from './../../interfaces/Vuelos';
@@ -22,8 +23,10 @@ export class ConsultarEventosComponent implements OnInit {
   searchEventIsDisabled = true;
   selectedEvent:TourEvent;
   selectedFlight:Vuelos;
+  selectedHotel:Hotel;
   bookingEventCode: string;
   foundedFlights: Vuelos[];
+  foundedHotels: Hotel[];
   uuidBookingCode: uuidv4;
 
   consultaFormGroup = new FormGroup({
@@ -34,7 +37,6 @@ export class ConsultarEventosComponent implements OnInit {
   })
 
   hotelFormGroup = new FormGroup({
-    fourthCtrl: new FormControl('', Validators.required)
   })
 
   shoppingFormGroup = new FormGroup({
@@ -131,8 +133,16 @@ export class ConsultarEventosComponent implements OnInit {
     this.foundedFlights = flights;
   }
 
+  onHotelSearchResponse(hotels:Hotel[]){
+    this.foundedHotels = hotels;
+  }
+
   onEventSelected(evento:TourEvent){
     this.selectedEvent = evento;
     this.bookingEventCode = evento.tourEventId.toString();
   }
+
+  onHotelSelected(hotelSelected:Hotel){
+    this.selectedHotel = hotelSelected;
+  } 
 }
