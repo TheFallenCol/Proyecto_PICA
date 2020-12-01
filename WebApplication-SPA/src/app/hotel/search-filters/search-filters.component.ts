@@ -13,7 +13,7 @@ export class SearchFiltersComponent implements OnInit {
   @Input('bookingEventCode') bookingEventCode : string;
   @Output('searchFlightsEvent') click = new EventEmitter();
   
-  form = new FormGroup({    
+  form = new FormGroup({
     originControl : new FormControl(),
     destinationControl : new FormControl(),
     departureDateControl : new FormControl(new Date()),
