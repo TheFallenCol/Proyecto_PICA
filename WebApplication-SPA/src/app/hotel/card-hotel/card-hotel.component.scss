@@ -1,0 +1,36 @@
+.img-size{
+    height: 200px;
+    width: auto;
+}
+
+mat-card{
+    background-color: #F3F3F3;
+}
+
+.card-object{
+    .content-header{
+        border-bottom: 1px solid grey;
+    }
+
+    .content-container{
+        display: inline-flex;
+        width: 100%;
+
+        .banner-images{
+            margin-top: 1rem;
+        }
+
+        .informacion-evento{
+            margin-top: 1rem;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+            .bloqueInformacion1{
+                display: block;
+            }
+    
+            .bloqueInformacion2{
+                display: block;
+            }
+        }
+    }
+}
