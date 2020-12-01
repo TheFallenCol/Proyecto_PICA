@@ -1,1 +1,2 @@
-<app-flight-card [flightsInformation]="arrayFlights" [informationCard]="true"></app-flight-card>
+<app-flight-card *ngIf="selectedFlight !== undefined" [flightsInformation]="arrayFlights" [informationCard]="true"></app-flight-card>
+<app-card-hotel *ngIf="selectedHotel !== undefined" [hotelInformation]="arrayHotels" [informationCard]="true"></app-card-hotel>
