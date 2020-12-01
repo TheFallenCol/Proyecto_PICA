@@ -1,3 +1,4 @@
+import { Hotel } from 'src/app/interfaces/Hotel';
 import { startWith, map } from 'rxjs/operators';
 import { Vuelos } from './../../interfaces/Vuelos';
 import { ObservableInput } from 'rxjs';
@@ -14,7 +15,6 @@ export class SearchFiltersComponent implements OnInit {
   @Output('searchFlightsEvent') click = new EventEmitter();
   
   form = new FormGroup({
-    originControl : new FormControl(),
     destinationControl : new FormControl(),
     departureDateControl : new FormControl(new Date()),
     arrivalDateControl: new FormControl(new Date()),
@@ -27,103 +27,58 @@ export class SearchFiltersComponent implements OnInit {
   originOptions: ObservableInput<string[]>;
   loadingElement:boolean=false;
 
-  flightList: Vuelos[] = [
+  hotelList: Hotel[] = [
     {
-      Supplier: "Avianca",
-      OriginAirport: "BOG",
-      DestinationAirport:"GER",
-      Origin: "Bogota",
-      Destination: "Germania",
-      StartDate: new Date('2020-12-01'),
-      EndDate: new Date('2020-12-05'),
-      Price: 1000000,
-      FlightCode: "41asd81asd9"
+      Supplier : 'Hilton',
+      Description : '',
+      City:'Bogota',
+      HotelImage:'Hotel1.jfif',
+      EndDate : new Date('2020-12-10'),
+      StartDate : new Date('2020-12-05'),
+      Price : 200000
     },
     {
-      Supplier: "Avianca",
-      OriginAirport: "BOG",
-      DestinationAirport:"GER",
-      Origin: "Bogota",
-      Destination: "Germania",
-      StartDate: new Date('2020-12-01'),
-      EndDate: new Date('2020-12-05'),
-      Price: 2000000,
-      FlightCode: "78981asd9"
-    },
-    {
-      Supplier: "Amadeus",
-      OriginAirport: "BOG",
-      DestinationAirport:"GER",
-      Origin: "Bogota",
-      Destination: "Germania",
-      StartDate: new Date('2020-12-01'),
-      EndDate: new Date('2020-12-05'),
-      Price: 3000000,
-      FlightCode: "4848151asd9"
-    },
-    {
-      Supplier: "ABC",
-      OriginAirport: "BOG",
-      DestinationAirport:"GER",
-      Origin: "Bogota",
-      Destination: "Germania",
-      StartDate: new Date('2020-12-01'),
-      EndDate: new Date('2020-12-05'),
-      Price: 4000000,
-      FlightCode: "49891881asd9"
+      Supplier : 'Dann Carlton',
+      Description : '',
+      City:'San José del Guaviare',
+      HotelImage : 'Hotel2.jfif',
+      EndDate : new Date('2020-12-10'),
+      StartDate : new Date('2020-12-05'),
+      Price : 150000
     }
   ];
 
   constructor() { }
 
   ngOnInit(): void {
-    this.quantityPassangers.setValue(1);
+    console.log('Falta cargar ciudades por api')
 
     this.filteredOptions = this.destinationControl.valueChanges
       .pipe(
         startWith(''),
-        map(value => this.arrivalFilter(value))
+        map(value => this.hotelCityFilter(value))
       );
-
-    this.originOptions = this.originControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this.originFilter(value))
-    );
   }
 
   ngOnChanges(){
     this.bookFlightControl.setValue(this.bookingEventCode);
   }
 
-  private arrivalFilter(value: string): string[] {
+  private hotelCityFilter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.cityOptions.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  private originFilter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.cityOptions.filter(option => option.toLowerCase().includes(filterValue));
-  }
-
-  searchFlights(){
+  searchHotels(){
     this.loadingElement=true;
     setTimeout(() => {
       this.loadingElement=false;
-      this.click.emit(<Vuelos[]>this.flightList);
+      this.click.emit(<Hotel[]>this.hotelList);
     }, 1000);    
-  }
-
-  get tourEventControl(){
-    return this.form.get('tourEventControl');
   }
 
   get destinationControl(){
     return this.form.get('destinationControl');
-  }
-  
-  get originControl(){
-    return this.form.get('originControl');
   }
 
   get departureDateControl(){
@@ -136,9 +91,5 @@ export class SearchFiltersComponent implements OnInit {
 
   get bookFlightControl(){
     return this.form.get('bookFlightControl');
-  } 
-
-  get quantityPassangers(){
-    return this.form.get('quantityPassangers');
   } 
 }
