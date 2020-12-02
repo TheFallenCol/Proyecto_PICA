@@ -6,4 +6,5 @@ export interface Hotel{
     EndDate: Date;
     HotelImage: string;
     Price: number;
+    RoomsQuantity: number
 }
