@@ -1,0 +1,150 @@
+version: "3"
+services:
+
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    container_name: zookeeper
+    ports:
+      - '2181:2181'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  kafka:
+    image: 'bitnami/kafka:latest'
+    container_name: kafka
+    ports:
+      - '9092:9092'
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zookeeper
+
+  reader-params:
+    image: 'andresmartinezcobos/reader-params:0.6'
+    container_name: reader-params
+    ports:
+      - '9071:9071'
+    environment:
+      - MONGO_HOST_TOURES=host.docker.internal
+      - MONGO_PORT_TOURES=27017
+      - MONGO_DATABASE_TOURES=touresbalon
+      - MONGO_USER_TOURES=mongoadmin
+      - MONGO_PASSWORD_TOURES=secret
+      - KAFKA_SERVER_TOURES=host.docker.internal:9092
+      - KAFKA_TOPIC_PRODUCER_TOURES=topic-2-normalizer
+      - ENDPOINT_TRANSFORMER_TOURES=http://host.docker.internal:32792/api/v1/Transformer/
+      - PATH_TRANSFORMER_TOURES=TransformadorBase
+
+  transform:
+    image: 'diegofdiazh/transformadorpica2020v7'
+    container_name: transform
+    ports:
+      - '32792:80'
+
+  mongoDB:
+    image: 'mongo'
+    container_name: mongoBD
+    ports:
+      - '27017:27017'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongoadmin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+
+  drools:
+    image: 'juancmoralesp/drools:v6'
+    container_name: drools
+    ports:
+      - '9073:9073'
+    environment:
+      - KAFKA_SERVER_TOURES=host.docker.internal:9092
+      - KAFKA_TOPIC_PRODUCER_TOURES=topic-1-normalizer
+      - RULES_PATH=/tmp/reglas_negocio/rules.xlsx
+    volumes:
+      - /Drools:/tmp/reglas_negocio
+
+  adapterDB:
+    image: 'andresmartinezcobos/providers-adapter-db:0.3'
+    container_name: adapterDB
+    ports:
+      - '9070:9070'
+
+  adapterRest:
+    image: 'thefallencol/restadapter-api:v1.2'
+    container_name: adapterRest
+    ports:
+      - '32785:80'
+
+  adapterSoap:
+    image: 'thefallencol/webserviceadapter:v1.0'
+    container_name: adapterSoap
+    ports:
+      - '32788:80'
+
+  adapterFtp:
+    image: 'diegofdiazh/adapterftp_pica2020'
+    container_name: adapterFtp
+    ports:
+      - '32790:80'
+
+  router:
+    image: 'juancmoralesp/router:v4'
+    container_name: router
+    ports:
+      - '32791:80'
+
+  normalizador:
+    image: 'andresmartinezcobos/normalizer:0.7'
+    container_name: normalizador
+    ports:
+      - '9074:9074'
+    environment:
+      - KAFKA_SERVER_TOURES=host.docker.internal:9092
+      - KAFKA_TOPIC_PRODUCER_TOURES=topic-3-normalizer
+      - ENDPOINT_READER_TOURES=http://host.docker.internal:9071/V1/Enterprise/
+      - PATH_READER_TOURES=providers/
+      - ENDPOINT_CACHE_TOURES=http://host.docker.internal:32793/
+      - PATH_CACHE_SAVE_TOURES=set/
+      - PATH_CACHE_GET_TOURES=get/
+  
+  redis:
+    image: 'redis'
+    container_name: redis
+    ports:
+      - '6379:6379'
+
+  integradorcache:
+    image: 'juancmoralesp/integradorcache:v2'
+    container_name: integradorcache
+    ports:
+      - '32793:80'      
+
+  vuelosCore:
+    image: 'diegofdiazh/vueloscorev3:v1'
+    container_name: vuelosCore
+    ports:
+      - '32794:80'
+    
+  eventosCore:
+    image: 'diegofdiazh/eventoscorev3:v3'
+    container_name: eventosCore
+    ports:
+      - '32795:80'
+      
+  hotelsCore:
+    image: 'diegofdiazh/hotelescorev1:latest'
+    container_name: hotelesCore
+    ports:
+      - '32796:80'
+      
+  transporteTerrestreCore:
+    image: 'diegofdiazh/transporteterrestrev1:latest'
+    container_name: transporteTerrestreCore
+    ports:
+      - '32797:80'  
+  
+networks:
+  default:
+    external:
+      name: toures-balon-network
