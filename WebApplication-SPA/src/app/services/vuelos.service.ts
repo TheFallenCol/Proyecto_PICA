@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { map, catchError, retry } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from './data-service';
@@ -9,7 +10,7 @@ import { Injectable } from '@angular/core';
 export class VuelosService extends DataService {
 
   constructor(http : HttpClient) { 
-    super('http://localhost:32789/api/v1/Vuelos', http);
+    super(environment.urlVuelosService, http);
   }
 
   getEventByCity(cityName : string){

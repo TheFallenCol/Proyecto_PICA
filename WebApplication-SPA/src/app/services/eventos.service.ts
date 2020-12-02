@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { catchError, map, retry } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from './data-service';
@@ -9,7 +10,7 @@ import { Injectable } from '@angular/core';
 export class EventosService extends DataService {
 
   constructor(http : HttpClient) { 
-    super('http://localhost:32790/api/v1/Eventos', http);
+    super(environment.urlEventService, http);
   }
 
   getEventByCity(cityName : string){
