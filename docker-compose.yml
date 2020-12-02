@@ -121,7 +121,7 @@ services:
       - '32793:80'      
 
   vuelosCore:
-    image: 'diegofdiazh/vueloscorev3:v1'
+    image: 'diegofdiazh/vueloscorev3:v2'
     container_name: vuelosCore
     ports:
       - '32794:80'
@@ -133,7 +133,7 @@ services:
       - '32795:80'
       
   hotelsCore:
-    image: 'diegofdiazh/hotelescorev1:latest'
+    image: 'diegofdiazh/hotelescorev3:v2'
     container_name: hotelesCore
     ports:
       - '32796:80'
