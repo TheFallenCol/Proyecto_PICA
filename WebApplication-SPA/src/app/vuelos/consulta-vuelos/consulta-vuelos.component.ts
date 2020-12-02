@@ -4,6 +4,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Component, Input, OnInit, Output, EventEmitter, OnChanges } from '@angular/core';
 import { ObservableInput } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { v4 as uuidv4 } from 'uuid';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-consulta-vuelos',
@@ -13,6 +15,7 @@ import { startWith, map } from 'rxjs/operators';
 
 export class ConsultaVuelosComponent implements OnInit, OnChanges {
   @Input('bookingEventCode') bookingEventCode : string;
+  @Input('uuid') uuidBookingCode : uuidv4;
   @Output('searchFlightsEvent') click = new EventEmitter();
   
   form = new FormGroup({    
@@ -87,7 +90,7 @@ export class ConsultaVuelosComponent implements OnInit, OnChanges {
       this.cityOptions = [];
 
       response.forEach(element => {        
-        this.cityOptions.push(element['concatenado']);
+        this.cityOptions.push(element['ciudadUbicacion']);
       });
       
       this.filteredOptions = this.destinationControl.valueChanges
@@ -123,10 +126,16 @@ export class ConsultaVuelosComponent implements OnInit, OnChanges {
     let destinationCity = this.citiesAirports.filter(predicate => predicate.concatenado == this.destinationControl.value);
     let originCity = this.citiesAirports.filter(predicate => predicate.concatenado == this.originControl.value);
 
-    setTimeout(() => {
-      this.loadingElement=false;
-      this.click.emit(<Vuelos[]>this.flightList);
-    }, 1000);    
+    this.vuelosService.searchFlights(this.uuidBookingCode, this.departureDateControl.value, this.arrivalDateControl.value, 
+      this.originControl.value, this.destinationControl.value)
+      .subscribe(response => {
+        console.log(response);
+        this.loadingElement=false;
+        this.click.emit(<Vuelos[]>this.flightList);
+      }, error => {
+        debugger;
+        this.loadingElement=false;
+      });
   }
 
   get tourEventControl(){

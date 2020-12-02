@@ -40,7 +40,7 @@
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <app-consulta-vuelos [bookingEventCode]="bookingEventCode"
+                            <app-consulta-vuelos [bookingEventCode]="bookingEventCode" [uuid]="uuidBookingCode"
                                 (searchFlightsEvent)="onFlightSearchResponse($event)"></app-consulta-vuelos>
                             <app-flight-card *ngIf="foundedFlights !== undefined" [flightsInformation]="foundedFlights"
                                 [informationCard]="false" (selected)="onFlightSelected($event)"></app-flight-card>
