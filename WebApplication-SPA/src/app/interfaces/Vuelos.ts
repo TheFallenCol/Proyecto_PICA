@@ -1,11 +1,11 @@
 export interface Vuelos{
-    Supplier: string;
-    OriginAirport : string;
-    DestinationAirport:string;
-    Origin : string;
-    Destination:string;
-    StartDate: Date;
-    EndDate: Date;
-    Price: number;
-    FlightCode: string;   
+    supplier: string;
+    originAirport : string;
+    destinationAirport:string;
+    origin : string;
+    destination:string;
+    startDate: Date;
+    endDate: Date;
+    price: number;
+    flightCode: string;   
 }

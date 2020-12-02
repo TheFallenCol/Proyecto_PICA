@@ -1,7 +1,7 @@
-<form [formGroup]="form" class="container" style="height: 90%;" (ngSubmit)="searchFlights()">    
+<form [formGroup]="form" class="container" style="height: 90%;" (ngSubmit)="searchFlights()">
     <div *ngIf="form.errors">
-        <div class="alert alert-danger mt-5" id="alerta" *ngIf="form.errors.loginError">
-            Nickname or password are wrong
+        <div class="alert alert-danger mt-5" id="alerta" *ngIf="form.errors.comunicationError">
+            There was an error trying to get the values, please try again later
             <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -16,23 +16,23 @@
                     <input matInput placeholder="Codigo Evento" [formControl]="bookFlightControl" required>
                 </mat-form-field>
                 <mat-form-field class="autocomplete-css">
-                    <input type="text" placeholder="Origen" aria-label="Number" matInput [formControl]="originControl" 
+                    <input type="text" placeholder="Origen" aria-label="Number" matInput [formControl]="originControl"
                         [matAutocomplete]="autoOrigin">
                     <mat-autocomplete autoActiveFirstOption #autoOrigin="matAutocomplete">
                         <mat-option *ngFor="let originCity of originOptions | async" [value]="originCity">
-                        {{originCity}}
+                            {{originCity}}
                         </mat-option>
                     </mat-autocomplete>
                 </mat-form-field>
                 <mat-form-field class="autocomplete-css">
-                    <input type="text" placeholder="Destino" aria-label="Number" matInput [formControl]="destinationControl" 
-                        [matAutocomplete]="autoDestination">
+                    <input type="text" placeholder="Destino" aria-label="Number" matInput
+                        [formControl]="destinationControl" [matAutocomplete]="autoDestination">
                     <mat-autocomplete autoActiveFirstOption #autoDestination="matAutocomplete">
                         <mat-option *ngFor="let destinationCity of filteredOptions | async" [value]="destinationCity">
-                        {{destinationCity}}
+                            {{destinationCity}}
                         </mat-option>
                     </mat-autocomplete>
-                </mat-form-field>                
+                </mat-form-field>
             </div>
             <div class="form-group">
                 <mat-form-field appearance="fill">
@@ -49,10 +49,9 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Cantidad Pasajeros</mat-label>
-                    <input type="number" [formControl]="quantityPassangers" matInput minlength="1" maxlength="1"
-                    max="9" min="1" placeholder="Cantidad Pasajeros"
-                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                    >
+                    <input type="number" [formControl]="quantityPassangers" matInput minlength="1" maxlength="1" max="9"
+                        min="1" placeholder="Cantidad Pasajeros"
+                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                 </mat-form-field>
             </div>
             <div class="form-group">
@@ -62,5 +61,8 @@
     </div>
     <div *ngIf="loadingElement" class="loader">
         <mat-spinner class="loading-image"></mat-spinner>
+        <mat-label class="loading-message">
+            Buscando las mejores ofertas para ti....
+        </mat-label>
     </div>
 </form>

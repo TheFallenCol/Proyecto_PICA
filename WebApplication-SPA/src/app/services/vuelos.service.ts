@@ -1,10 +1,11 @@
 import { Vuelos } from './../interfaces/Vuelos';
 import { environment } from './../../environments/environment';
-import { map, catchError, retry, retryWhen, delay, take} from 'rxjs/operators';
+import { map, catchError, retry, retryWhen } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { DataService } from './data-service';
+import { DataService, genericRetryStrategy } from './data-service';
 import { Injectable } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -55,24 +56,26 @@ export class VuelosService extends DataService {
   searchFlights(uuid: uuidv4, startDate: Date, endDate: Date, origin: string, destination: string ){
     
     this.insertMessageKafka(uuid, startDate, endDate, origin, destination)
-    .subscribe(response => {      
+    .subscribe(response => {
+          
     }, errores => {
       catchError(this.handleError);
     });
 
-    return this.httpClient.get<Vuelos[]>(this.serviceUrl+'/ConsultarVuelosUiid', {
+    let variable$ = this.httpClient.get<Vuelos[]>(this.serviceUrl+'/ConsultarVuelosUiid', {
       params: {
         uuid: uuid
       },
       observe: 'response'
-    })
+    });
+
+    return variable$
     .pipe(
-      retryWhen(errors => errors.pipe(      
-          delay(4000),
-          take(5)
-        )
-      ),
-      catchError(this.handleError)      
-    )
+      retryWhen(genericRetryStrategy({
+        maxRetryAttempts : 3,
+        scalingDuration : 3000
+      })),
+      catchError(error => of(error))
+    );
   }
 }

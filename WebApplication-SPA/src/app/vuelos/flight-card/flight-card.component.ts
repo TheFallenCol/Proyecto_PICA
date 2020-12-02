@@ -10,13 +10,13 @@ export class FlightCardComponent implements OnInit {
   @Input('flightsInformation') flightsInformation: Vuelos[];
   @Input('informationCard') informationCard: boolean = false;
   @Output('selected') click = new EventEmitter();
-  srcImage = '../../../assets/images/Equipos/';
   selectedEvent: Vuelos;
 
   constructor() { }
 
   ngOnInit(): void {
     console.log('Buscar vuelos post ->',this.flightsInformation);
+    console.log(this.flightsInformation[0]);
   }
 
   selectedFlight(selectedEvent: Vuelos) {

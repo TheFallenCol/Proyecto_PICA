@@ -5,7 +5,7 @@ import { Component, Input, OnInit, Output, EventEmitter, OnChanges } from '@angu
 import { ObservableInput } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { v4 as uuidv4 } from 'uuid';
-import { error } from 'protractor';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-consulta-vuelos',
@@ -32,53 +32,6 @@ export class ConsultaVuelosComponent implements OnInit, OnChanges {
   filteredOptions: ObservableInput<string[]>;
   originOptions: ObservableInput<string[]>;
   loadingElement:boolean=false;
-
-  flightList: Vuelos[] = [
-    {
-      Supplier: "Avianca",
-      OriginAirport: "BOG",
-      DestinationAirport:"GER",
-      Origin: "Bogota",
-      Destination: "Germania",
-      StartDate: new Date('2020-12-01'),
-      EndDate: new Date('2020-12-05'),
-      Price: 1000000,
-      FlightCode: "41asd81asd9"
-    },
-    {
-      Supplier: "Avianca",
-      OriginAirport: "BOG",
-      DestinationAirport:"GER",
-      Origin: "Bogota",
-      Destination: "Germania",
-      StartDate: new Date('2020-12-01'),
-      EndDate: new Date('2020-12-05'),
-      Price: 2000000,
-      FlightCode: "78981asd9"
-    },
-    {
-      Supplier: "Amadeus",
-      OriginAirport: "BOG",
-      DestinationAirport:"GER",
-      Origin: "Bogota",
-      Destination: "Germania",
-      StartDate: new Date('2020-12-01'),
-      EndDate: new Date('2020-12-05'),
-      Price: 3000000,
-      FlightCode: "4848151asd9"
-    },
-    {
-      Supplier: "ABC",
-      OriginAirport: "BOG",
-      DestinationAirport:"GER",
-      Origin: "Bogota",
-      Destination: "Germania",
-      StartDate: new Date('2020-12-01'),
-      EndDate: new Date('2020-12-05'),
-      Price: 4000000,
-      FlightCode: "49891881asd9"
-    }
-  ];
 
   constructor(private vuelosService : VuelosService) { }
 
@@ -122,19 +75,18 @@ export class ConsultaVuelosComponent implements OnInit, OnChanges {
   }
 
   searchFlights(){
-    this.loadingElement=true;    
-    let destinationCity = this.citiesAirports.filter(predicate => predicate.concatenado == this.destinationControl.value);
-    let originCity = this.citiesAirports.filter(predicate => predicate.concatenado == this.originControl.value);
-
+    this.loadingElement=true;
     this.vuelosService.searchFlights(this.uuidBookingCode, this.departureDateControl.value, this.arrivalDateControl.value, 
       this.originControl.value, this.destinationControl.value)
       .subscribe(response => {
-        console.log(response);
         this.loadingElement=false;
-        this.click.emit(<Vuelos[]>this.flightList);
-      }, error => {
-        debugger;
-        this.loadingElement=false;
+        if(response instanceof HttpErrorResponse){
+          this.form.setErrors({
+            comunicationError : true
+          })
+          return;
+        }
+        this.click.emit(<Vuelos[]>response.body as Array<Vuelos>);
       });
   }
 

@@ -1,10 +1,10 @@
 import { BadRequestError } from '../common/badRequest-error';
 import { NotFoundError } from '../common/notFound-error';
 import { AppError } from '../common/app-error';
-import { catchError } from 'rxjs/operators';
+import { catchError, retryWhen, delay, mergeMap, finalize } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ObservableInput } from 'rxjs';
+import { Observable, ObservableInput, of, throwError, timer } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -60,3 +60,31 @@ export class DataService{
     throw appError;
   }
 }
+
+export const genericRetryStrategy = ({
+  maxRetryAttempts = 3,
+  scalingDuration = 1000,
+  excludedStatusCodes = []
+}: {
+  maxRetryAttempts?: number,
+  scalingDuration?: number,
+  excludedStatusCodes?: number[]
+} = {}) => (attempts: Observable<any>) => {
+  return attempts.pipe(
+    mergeMap((error, i) => {
+      const retryAttempt = i + 1;
+      if (
+        retryAttempt > maxRetryAttempts ||
+        excludedStatusCodes.find(e => e === error.status)
+      ) {
+        return throwError(error);
+      }
+      console.log(
+        `Intento ${retryAttempt}: Reintentando en ${retryAttempt *
+          scalingDuration}ms`
+      );
+      return timer(retryAttempt * scalingDuration);
+    }),
+    finalize(() => console.log('Reintentos finalizados!'))
+  );
+};
