@@ -142,7 +142,13 @@ services:
     image: 'diegofdiazh/transporteterrestrev1:latest'
     container_name: transporteTerrestreCore
     ports:
-      - '32797:80'  
+      - '32797:80'
+
+  authenticationCore:
+    image: 'thefallencol/authentication-api:v1.5'
+    container_name: authenticationCore
+    ports:
+      - '32798:80'      
   
 networks:
   default:
