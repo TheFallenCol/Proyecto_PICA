@@ -1,8 +1,10 @@
+import { Vuelos } from './../interfaces/Vuelos';
 import { environment } from './../../environments/environment';
-import { map, catchError, retry } from 'rxjs/operators';
+import { map, catchError, retry, retryWhen, delay, take} from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from './data-service';
 import { Injectable } from '@angular/core';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +35,44 @@ export class VuelosService extends DataService {
       catchError(this.handleError),
       retry(3)
     );
+  }
+
+  insertMessageKafka(uuid: uuidv4, startDate: Date, endDate: Date, origin: string, destination: string){
+    return this.httpClient.post(this.serviceUrl+'/ConsultarVuelos', {
+      "Uuid":uuid,
+      "FechaInicio": startDate.getFullYear() + '-' + ("0" + startDate.getMonth()).slice(-2) +'-' +("0" + startDate.getDay()).slice(-2),
+      "FechaFinal": endDate.getFullYear() + '-' + ("0" + endDate.getMonth()).slice(-2) +'-' +("0" + endDate.getDay()).slice(-2),
+      "Origen": origin,
+      "Destino": destination,
+      "CantidadPasajeros": 1
+    })
+    .pipe(      
+      catchError(this.handleError),
+      retry(3)
+    );
+  }
+
+  searchFlights(uuid: uuidv4, startDate: Date, endDate: Date, origin: string, destination: string ){
+    
+    this.insertMessageKafka(uuid, startDate, endDate, origin, destination)
+    .subscribe(response => {      
+    }, errores => {
+      catchError(this.handleError);
+    });
+
+    return this.httpClient.get<Vuelos[]>(this.serviceUrl+'/ConsultarVuelosUiid', {
+      params: {
+        uuid: uuid
+      },
+      observe: 'response'
+    })
+    .pipe(
+      retryWhen(errors => errors.pipe(      
+          delay(4000),
+          take(5)
+        )
+      ),
+      catchError(this.handleError)      
+    )
   }
 }
