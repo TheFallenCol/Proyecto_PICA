@@ -32,6 +32,7 @@ export class SearchFiltersComponent implements OnInit {
       Supplier : 'Hilton',
       Description : '',
       City:'Bogota',
+      RoomsQuantity: 0,
       HotelImage:'Hotel1.jfif',
       EndDate : new Date('2020-12-10'),
       StartDate : new Date('2020-12-05'),
@@ -40,6 +41,7 @@ export class SearchFiltersComponent implements OnInit {
     {
       Supplier : 'Dann Carlton',
       Description : '',
+      RoomsQuantity: 0,
       City:'San José del Guaviare',
       HotelImage : 'Hotel2.jfif',
       EndDate : new Date('2020-12-10'),
