@@ -6,6 +6,12 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+        <div class="alert alert-warning mt-5" id="alerta" *ngIf="form.errors.notFound">
+            There are not flights found for the search
+            <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     </div>
     <p class="h2 title-style">Busque sus vuelos baratos</p>
     <div class="row align-items-center" style="height: 20%;">
