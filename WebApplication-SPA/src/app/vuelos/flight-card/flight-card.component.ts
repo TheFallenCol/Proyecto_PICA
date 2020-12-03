@@ -15,8 +15,6 @@ export class FlightCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('Buscar vuelos post ->',this.flightsInformation);
-    console.log(this.flightsInformation[0]);
   }
 
   selectedFlight(selectedEvent: Vuelos) {
