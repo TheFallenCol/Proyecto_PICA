@@ -1,3 +1,5 @@
+import { HotelesService } from './../services/hoteles.service';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -41,6 +43,9 @@ import { CardHotelComponent } from './card-hotel/card-hotel.component';
   exports:[
     SearchFiltersComponent,
     CardHotelComponent
+  ],
+  providers:[
+    HotelesService
   ]
 })
 export class HotelModule { }
