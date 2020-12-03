@@ -1,6 +1,7 @@
+import { HotelesService } from './../../services/hoteles.service';
+import { CitiesAerports } from './../../vuelos/consulta-vuelos/consulta-vuelos.component';
 import { Hotel } from 'src/app/interfaces/Hotel';
 import { startWith, map } from 'rxjs/operators';
-import { Vuelos } from './../../interfaces/Vuelos';
 import { ObservableInput } from 'rxjs';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
@@ -21,12 +22,13 @@ export class SearchFiltersComponent implements OnInit {
     bookFlightControl: new FormControl(),
     quantityPassangers: new FormControl()
   });
-  
-  cityOptions: string[] = ['Barranquilla[BAQ]', 'Bogota[BOG]', 'Cali[CAL]', 'Pasto[PSO]'];
+
+  citiesAirports : CitiesAerports[];
+  cityOptions: string[];
   filteredOptions: ObservableInput<string[]>;
   originOptions: ObservableInput<string[]>;
   loadingElement:boolean=false;
-
+  
   hotelList: Hotel[] = [
     {
       Supplier : 'Hilton',
@@ -50,16 +52,25 @@ export class SearchFiltersComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(private hotelesService : HotelesService) { }
 
   ngOnInit(): void {
     console.log('Falta cargar ciudades por api')
 
-    this.filteredOptions = this.destinationControl.valueChanges
+    this.hotelesService.getCities().subscribe(response => {
+      this.citiesAirports = response as CitiesAerports[];
+      this.cityOptions = [];
+
+      response.forEach(element => {        
+        this.cityOptions.push(element['ciudadUbicacion']);
+      });
+      
+      this.filteredOptions = this.destinationControl.valueChanges
       .pipe(
         startWith(''),
         map(value => this.hotelCityFilter(value))
       );
+    })    
   }
 
   ngOnChanges(){
