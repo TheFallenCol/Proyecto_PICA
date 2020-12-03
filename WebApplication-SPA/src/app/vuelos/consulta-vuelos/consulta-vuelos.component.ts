@@ -81,9 +81,15 @@ export class ConsultaVuelosComponent implements OnInit, OnChanges {
       .subscribe(response => {
         this.loadingElement=false;
         if(response instanceof HttpErrorResponse){
+          if(response.status != 404){
+            this.form.setErrors({
+              comunicationError : true
+            });
+          }
+          
           this.form.setErrors({
-            comunicationError : true
-          })
+            notFound : true
+          });
           return;
         }
         this.click.emit(<Vuelos[]>response.body as Array<Vuelos>);
@@ -119,7 +125,7 @@ export class ConsultaVuelosComponent implements OnInit, OnChanges {
   } 
 }
 
-interface CitiesAerports {
+export interface CitiesAerports {
   id: number,
   iata: string,
   ciudadUbicacion: string,
