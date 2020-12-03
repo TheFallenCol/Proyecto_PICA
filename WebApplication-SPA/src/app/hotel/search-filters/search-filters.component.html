@@ -51,5 +51,8 @@
     <button class="btn btn-primary mb-3" type="submit" [disabled]="form.invalid">Buscar</button>
     <div *ngIf="loadingElement" class="loader">
         <mat-spinner class="loading-image"></mat-spinner>
+        <mat-label class="loading-message">
+            Buscando las mejores ofertas para ti....
+        </mat-label>
     </div>
 </form>
