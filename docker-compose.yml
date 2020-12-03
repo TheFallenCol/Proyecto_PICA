@@ -127,7 +127,7 @@ services:
       - '32794:80'
     
   eventosCore:
-    image: 'diegofdiazh/eventoscorev3:v3'
+    image: 'diegofdiazh/eventoscorev3:v4'
     container_name: eventosCore
     ports:
       - '32795:80'
@@ -148,7 +148,13 @@ services:
     image: 'thefallencol/authentication-api:v1.5'
     container_name: authenticationCore
     ports:
-      - '32798:80'      
+      - '32798:80'
+      
+  comprasCore:
+    image: 'juancmoralesp/compras:v2'
+    container_name: comprasCore
+    ports:
+      - '32799:80'
   
 networks:
   default:
