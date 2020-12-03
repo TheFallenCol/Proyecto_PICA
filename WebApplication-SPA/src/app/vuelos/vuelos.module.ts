@@ -16,6 +16,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FlightCardComponent } from './flight-card/flight-card.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { FlightCardComponent } from './flight-card/flight-card.component';
     FlightCardComponent
   ],
   imports: [
+    MatIconModule,
     MatStepperModule,
     MatProgressSpinnerModule,
     MatButtonModule,
