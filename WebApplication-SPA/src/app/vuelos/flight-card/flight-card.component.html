@@ -1,11 +1,13 @@
 <div class="row">
     <div class="card-container col-12">
-        <div *ngFor="let flight of flightsInformation" class="card-event col-10">
+        <div *ngFor="let flight of flightsInformation" class="card-event mt-3 col-10">
             <div class="card-object">
                 <mat-card class="mt-2 col-12">
                     <mat-card-header class="content-header">
-                        <div mat-card-avatar class="example-header-image"></div>
-                        <mat-card-title>Proveedor:{{flight.supplier}} Escala:{{flight.origin}}-{{flight.destination}}</mat-card-title>
+                        <div mat-card-avatar class="example-header-image">
+                            <mat-icon class="menu-link-item">flight_takeoff</mat-icon>
+                        </div>
+                        <mat-card-title>Escala: {{flight.origin}} - {{flight.destination}}</mat-card-title>
                     </mat-card-header>
                     <mat-card-content class="content-container row">
                         <div class="informacion-evento col">
@@ -13,11 +15,13 @@
                                 <div class="bloqueInformacion1 col">
                                     <h2 class="display-3">Ciudad Origen: {{flight.origin}}</h2>
                                     <h2 class="display-3">Fecha: {{flight.endDate | date:'shortDate'}}</h2>
+                                    <h2 class="display-3">Proveedor: {{flight.supplier}}</h2>
                                 </div>
                                 <div class="bloqueInformacion2 col">
-                                    <h2 class="display-3">Ciudad: {{flight.destination}}</h2>
+                                    <h2 class="display-3">Ciudad Destino: {{flight.destination}}</h2>
                                     <h2 class="display-3">Fecha:
-                                        {{flight.price | currency:'COP':"symbol-narrow":'3.0-2'}}</h2>
+                                        {{flight.price | currency:'COP':"symbol-narrow":'2.0-2'}}
+                                    </h2>                                    
                                 </div>
                                 <div class="bloqueBotones col-3" *ngIf="!informationCard">
                                     <button mat-raised-button color="primary" class="mr-1"
