@@ -62,10 +62,10 @@
                     <div class="mt-5" style="height: auto;">
                         <div class="row">
                             <div class="col-2">
-                                <app-search-filters [bookingEventCode]="bookingEventCode" (searchFlightsEvent)="onHotelSearchResponse($event)"></app-search-filters>
+                                <app-search-filters [bookingEventCode]="bookingEventCode" [uuid]="uuidBookingCode" (searchFlightsEvent)="onHotelSearchResponse($event)"></app-search-filters>
                             </div>
                             <div class="col-9">
-                                <app-card-hotel [hotelInformation]="foundedHotels" [informationCard]="false" (selected)="onHotelSelected($event)"></app-card-hotel>
+                                <app-card-hotel *ngIf="foundedHotels !== undefined" [hotelInformation]="foundedHotels" [informationCard]="false" (selected)="onHotelSelected($event)"></app-card-hotel>
                             </div>
                         </div>
                     </div>
