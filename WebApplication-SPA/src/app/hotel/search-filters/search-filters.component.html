@@ -31,20 +31,20 @@
     <div class="row">
         <div class="col">
             <mat-form-field appearance="fill">
-                <mat-label>Fecha Salida</mat-label>
-                <input matInput [matDatepicker]="departurePicker" [formControl]="departureDateControl">
-                <mat-datepicker-toggle matSuffix [for]="departurePicker"></mat-datepicker-toggle>
-                <mat-datepicker #departurePicker></mat-datepicker>
+                <mat-label>Fecha Llegada</mat-label>
+                <input matInput [matDatepicker]="arrivalPicker" [formControl]="checkInControl">
+                <mat-datepicker-toggle matSuffix [for]="arrivalPicker"></mat-datepicker-toggle>
+                <mat-datepicker #arrivalPicker></mat-datepicker>
             </mat-form-field>
         </div>
     </div>
     <div class="row">
         <div class="col">
             <mat-form-field appearance="fill">
-                <mat-label>Fecha Llegada</mat-label>
-                <input matInput [matDatepicker]="arrivalPicker" [formControl]="arrivalDateControl">
-                <mat-datepicker-toggle matSuffix [for]="arrivalPicker"></mat-datepicker-toggle>
-                <mat-datepicker #arrivalPicker></mat-datepicker>
+                <mat-label>Fecha Salida</mat-label>
+                <input matInput [matDatepicker]="departurePicker" [formControl]="checkOutControl">
+                <mat-datepicker-toggle matSuffix [for]="departurePicker"></mat-datepicker-toggle>
+                <mat-datepicker #departurePicker></mat-datepicker>
             </mat-form-field>
         </div>
     </div>
