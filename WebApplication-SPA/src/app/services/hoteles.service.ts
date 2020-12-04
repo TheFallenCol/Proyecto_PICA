@@ -1,4 +1,4 @@
-import { Vuelos } from './../interfaces/Vuelos';
+import { Hotel } from './../interfaces/Hotel';
 import { map, catchError, retry, retryWhen } from 'rxjs/operators';
 import { environment } from './../../environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
@@ -38,14 +38,12 @@ export class HotelesService extends DataService {
     );
   }
 
-  insertMessageKafka(uuid: uuidv4, startDate: Date, endDate: Date, origin: string, destination: string){
-    return this.httpClient.post(this.serviceUrl+'/ConsultarVuelos', {
+  insertMessageKafka(uuid : uuidv4, checkInDate : Date, checkOutDate : Date, city : string){
+    return this.httpClient.post(this.serviceUrl+'/ConsultarHoteles', {
       "Uuid":uuid,
-      "FechaInicio": startDate.getFullYear() + '-' + ("0" + startDate.getMonth()).slice(-2) +'-' +("0" + startDate.getDay()).slice(-2),
-      "FechaFinal": endDate.getFullYear() + '-' + ("0" + endDate.getMonth()).slice(-2) +'-' +("0" + endDate.getDay()).slice(-2),
-      "Origen": origin,
-      "Destino": destination,
-      "CantidadPasajeros": 1
+      "FechaInicio": checkInDate.getFullYear() + '-' + ("0" + checkInDate.getMonth()).slice(-2) +'-' +("0" + checkInDate.getDay()).slice(-2),
+      "FechaFinal": checkOutDate.getFullYear() + '-' + ("0" + checkOutDate.getMonth()).slice(-2) +'-' +("0" + checkOutDate.getDay()).slice(-2),
+      "CiudadDestino": city
     })
     .pipe(      
       catchError(this.handleError),
@@ -53,22 +51,21 @@ export class HotelesService extends DataService {
     );
   }
 
-  searchFlights(uuid: uuidv4, startDate: Date, endDate: Date, origin: string, destination: string ){
+  searchHotels(uuid : uuidv4, checkInDate : Date, checkOutDate : Date, city : string ){
     
-    this.insertMessageKafka(uuid, startDate, endDate, origin, destination)
+    this.insertMessageKafka(uuid, checkInDate, checkOutDate, city)
     .subscribe(response => {
-          
     }, errores => {
       catchError(this.handleError);
     });
 
-    let variable$ = this.httpClient.get<Vuelos[]>(this.serviceUrl+'/ConsultarVuelosUiid', {
-      params: {
-        uuid: uuid
-      },
-      observe: 'response'
+    let variable$ = this.httpClient.post<Hotel[]>(this.serviceUrl+'/ConsultarHotelesUiid', {
+      "Uuid":uuid,
+      "FechaInicio": checkInDate.getFullYear() + '-' + ("0" + checkInDate.getMonth()).slice(-2) +'-' +("0" + checkInDate.getDay()).slice(-2),
+      "FechaFinal": checkOutDate.getFullYear() + '-' + ("0" + checkOutDate.getMonth()).slice(-2) +'-' +("0" + checkOutDate.getDay()).slice(-2),
+      "CiudadDestino": city
     });
-
+   
     return variable$
     .pipe(
       retryWhen(genericRetryStrategy({
