@@ -1,10 +1,12 @@
 export interface Hotel{
-    Supplier: string;
-    Description:string;
-    City:string;
-    StartDate: Date;
-    EndDate: Date;
-    HotelImage: string;
-    Price: number;
-    RoomsQuantity: number
+    supplier: string;
+    hotelName : string;
+    description:string;
+    city:string;
+    stardate: Date;
+    endDate: Date;
+    hotelImage: string;
+    price: number;
+    roomsQuantity: number,
+    hotelCode: string
 }
