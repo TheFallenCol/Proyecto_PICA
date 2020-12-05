@@ -109,7 +109,7 @@ export class ConsultarEventosComponent implements OnInit {
     return this.cityOptions.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  buyEvent(){
+  async buyEvent(){
     if(this.authService.authStatus.value.role === ""){
       this.dialog.open(DialogDataComponent, {
         data: {
@@ -118,14 +118,15 @@ export class ConsultarEventosComponent implements OnInit {
       });
       return;
     }
-    else{
+    else{      
+          
       this.loadingElement= true;
       this.loadingMessage.setValue("Realizando reserva de eventos.....");
+      await this.delay(3000);  
 
       this.eventosService.bookingEvent(this.authService.getToken(), this.selectedEvent.tourEventId, this.surname.value,
         this.name.value)
-        .subscribe(response => {
-          this.loadingElement=false;
+        .subscribe(response => {          
           if(response instanceof HttpErrorResponse){
             if(response.status != 404){
               this.shoppingFormGroup.setErrors({
@@ -144,65 +145,70 @@ export class ConsultarEventosComponent implements OnInit {
           this.codigoReservaResponse = +response["codigoReserva"];          
         });
 
-      this.loadingMessage.setValue("Realizando reserva de vuelos......");
+      if(this.selectedFlight !== undefined){
+        this.loadingMessage.setValue("Realizando reserva de vuelos......");
+        await this.delay(3000);
 
-      this.vuelosService.bookingFlight(this.authService.getToken(), this.uuidBookingCode, this.selectedFlight.supplier,
-      this.selectedFlight.flightCode, this.name.value, this.surname.value, this.selectedFlight.originAirport, 
-      this.selectedFlight.destinationAirport, this.selectedFlight.startDate, this.selectedFlight.endDate)
-      .subscribe(response => {
-        this.loadingElement=false;
-        if(response instanceof HttpErrorResponse){
-          if(response.status != 404){
+        this.vuelosService.bookingFlight(this.authService.getToken(), this.uuidBookingCode, this.selectedFlight.supplier,
+        this.selectedFlight.flightCode, this.name.value, this.surname.value, this.selectedFlight.originAirport, 
+        this.selectedFlight.destinationAirport, this.selectedFlight.startDate, this.selectedFlight.endDate)
+        .subscribe(response => {
+          this.loadingElement=false;
+          if(response instanceof HttpErrorResponse){
+            if(response.status != 404){
+              this.shoppingFormGroup.setErrors({
+                comunicationError : true,
+                bookingError : true
+              });
+              this.messageError = "Hubo un error al momento de reservar vuelos, comuniquese con el administrador"
+            }
+
             this.shoppingFormGroup.setErrors({
-              comunicationError : true,
-              bookingError : true
+              notFound : true
             });
-            this.messageError = "Hubo un error al momento de reservar vuelos, comuniquese con el administrador"
+            return;
           }
 
-          this.shoppingFormGroup.setErrors({
-            notFound : true
-          });
-          return;
-        }
+          this.codigoReservaVueloResponse = +response["codigoReservaVuelo"];          
+        });
+      }
 
-        this.codigoReservaVueloResponse = +response["codigoReservaVuelo"];          
-      });
+      if(this.selectedHotel !== undefined){
+        this.loadingMessage.setValue("Realizando reserva de Hoteles......");      
+        await this.delay(3000);
 
-      this.loadingMessage.setValue("Realizando reserva de Hoteles......");
+        this.hotelService.bookingHotel(this.authService.getToken(), this.uuidBookingCode, this.selectedHotel.supplier,
+        this.selectedHotel.hotelCode, this.name.value, this.surname.value)
+        .subscribe(response => {
+          this.loadingElement=false;
+          if(response instanceof HttpErrorResponse){
+            if(response.status != 404){
+              this.shoppingFormGroup.setErrors({
+                comunicationError : true,
+                bookingError : true
+              });
+              this.messageError = "Hubo un error al momento de reservar hoteles, comuniquese con el administrador"
+            }
 
-      this.hotelService.bookingHotel(this.authService.getToken(), this.uuidBookingCode, this.selectedHotel.supplier,
-      this.selectedHotel.hotelCode, this.name.value, this.surname.value)
-      .subscribe(response => {
-        this.loadingElement=false;
-        if(response instanceof HttpErrorResponse){
-          if(response.status != 404){
             this.shoppingFormGroup.setErrors({
-              comunicationError : true,
-              bookingError : true
+              notFound : true
             });
-            this.messageError = "Hubo un error al momento de reservar hoteles, comuniquese con el administrador"
+            return;
           }
 
-          this.shoppingFormGroup.setErrors({
-            notFound : true
-          });
-          return;
-        }
+          this.codigoReservaHotelResponse = +response["codigoReservaVuelo"];
+        });
+      }
 
-        this.codigoReservaHotelResponse = +response["codigoReservaVuelo"];
-      });
-
-
-      
-
-      console.log(this.uuidBookingCode);
-      console.log(this.selectedEvent);
-      console.log(this.selectedFlight);
-      console.log(this.selectedHotel);
-
-      // this.loadingElement = false;
+      this.loadingMessage.setValue("Iniciando Proceso de pago......");
+      await this.delay(3000);
+      this.loadingElement = false;
     }
+  }
+
+  private delay(ms: number)
+  {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   changeCity(){
