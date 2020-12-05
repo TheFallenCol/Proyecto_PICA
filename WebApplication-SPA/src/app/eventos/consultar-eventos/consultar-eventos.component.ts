@@ -203,6 +203,11 @@ export class ConsultarEventosComponent implements OnInit {
       this.loadingMessage.setValue("Iniciando Proceso de pago......");
       await this.delay(3000);
       this.loadingElement = false;
+      this.dialog.open(DialogDataComponent, {
+        data: {
+          message: 'Su compra ha sido realizada exitosamente'
+        }
+      });
     }
   }
 
