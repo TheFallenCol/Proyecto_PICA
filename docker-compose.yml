@@ -151,7 +151,7 @@ services:
       - '32798:80'
       
   comprasCore:
-    image: 'juancmoralesp/compras:v2'
+    image: 'juancmoralesp/compras:v3'
     container_name: comprasCore
     ports:
       - '32799:80'
