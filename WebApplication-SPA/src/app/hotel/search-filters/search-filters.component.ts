@@ -82,7 +82,8 @@ export class SearchFiltersComponent implements OnInit {
         }
         
         response.forEach(element => {
-           element['hotelImage'] = element['hotelImage'] + '.png'
+          //  element['hotelImage'] = (element['hotelImage'] as string).substr(0,6) + '.png';
+          element['hotelImage'] = element['hotelImage'] + '.png';
         });
 
         this.click.emit(<Hotel[]>response as Array<Hotel>);

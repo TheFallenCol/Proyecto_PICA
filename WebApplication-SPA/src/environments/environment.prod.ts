@@ -3,5 +3,6 @@ export const environment = {
   urlServiceAuth : 'http://localhost:32798/api',
   urlEventService: 'http://localhost:32795/api/v1/Eventos',
   urlVuelosService: 'http://localhost:32794/api/v1/Vuelos',
-  urlHotelService: 'http://localhost:32796/api/v1/Hoteles'
+  urlHotelService: 'http://localhost:32796/api/v1/Hoteles',
+  urlComprasService: 'http://localhost:32799/api/v1/compras'
 };

@@ -10,7 +10,7 @@ export class CardHotelComponent implements OnInit, OnChanges{
   @Input('hotelInformation') hotelInformation : Hotel[];
   @Input('informationCard') informationCard: boolean = false;
   @Output('selected') click = new EventEmitter();
-  srcImage = '../../../assets/images/Hoteles/';
+  srcImage = 'assets/images/Hoteles/';
   loadingElement:boolean=false;
 
   hotelList: Hotel[];

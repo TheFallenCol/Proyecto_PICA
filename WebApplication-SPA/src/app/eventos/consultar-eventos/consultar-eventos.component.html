@@ -65,7 +65,7 @@
                                 <app-search-filters [bookingEventCode]="bookingEventCode" [uuid]="uuidBookingCode" (searchFlightsEvent)="onHotelSearchResponse($event)"></app-search-filters>
                             </div>
                             <div class="col-9">
-                                <app-card-hotel *ngIf="foundedHotels !== undefined" [hotelInformation]="foundedHotels" [informationCard]="false" (selected)="onHotelSelected($event)"></app-card-hotel>
+                                <app-card-hotel *ngIf="foundedHotels != undefined" [hotelInformation]="foundedHotels" [informationCard]="false" (selected)="onHotelSelected($event)"></app-card-hotel>
                             </div>
                         </div>
                     </div>
@@ -79,6 +79,20 @@
         <mat-step>
             <form [formGroup]="shoppingFormGroup">
                 <ng-template matStepLabel>Comprar</ng-template>
+                <div *ngIf="shoppingFormGroup.errors">
+                    <div class="alert alert-danger mt-5" id="alerta" *ngIf="shoppingFormGroup.errors.comunicationError">
+                        There was an error trying to get the values, please try again later
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="alert alert-danger mt-5" id="alerta" *ngIf="shoppingFormGroup.errors.bookingError">
+                        {{messageError}}} 
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
                 <div class="container">
                     <div class="form-group">
                         <mat-form-field class="mr-2">
@@ -123,6 +137,10 @@
                         <button mat-raised-button color="primary" class="mr-1" matStepperPrevious>Atras</button>
                         <button mat-raised-button color="primary" style="display: none;" class="mr-1" (click)="stepper.reset()">Reinicio</button>
                         <button mat-raised-button color="primary" (click)="buyEvent()">Comprar</button>
+                    </div>
+                    <div *ngIf="loadingElement" class="loader">
+                        <mat-spinner class="loading-image"></mat-spinner>
+                        <mat-label class="loading-message">{{loadingMessage.value}}</mat-label>
                     </div>
                 </div>
             </form>
